@@ -1,0 +1,6 @@
+[book]
+authors = ["yvvw"]
+language = "zh"
+multilingual = false
+src = "src"
+title = "Move 教程"
