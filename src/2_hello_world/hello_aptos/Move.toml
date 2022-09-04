@@ -1,0 +1,7 @@
+[package]
+name = 'hello_aptos'
+version = '1.0.0'
+[dependencies.AptosFramework]
+git = 'https://github.com/davidiw/aptos-core.git'
+rev = 'conversions'
+subdir = 'aptos-move/framework/aptos-framework'

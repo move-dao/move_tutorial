@@ -1,13 +1,3 @@
-# Summary
-
-[简介](./introduction.md)
-
-# 课程
-
-- [初级课程](./beginner.md)
-- [中级课程](./intermediate.md)
-- [高级课程](./advanced.md)
-
----
-
-[Contributors](./contributors.md)
+- [简介](./1_introduction.md)
+- [Hello World](./2_hello_world/README.md)
+- [模块及脚本](./3_modules_and_scripts.md)
