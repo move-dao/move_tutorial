@@ -1,6 +1,6 @@
 # Move 教程
 
-[简介](./1_introduction.md)
+[简介](./0_introduction.md)
 
-- [Hello World](./2_hello_world/README.md)
-- [模块及脚本](./3_modules_and_scripts.md)
+- [Hello World](./1_hello_world/README.md)
+- [模块及脚本](./2_modules_and_scripts.md)

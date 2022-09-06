@@ -6,7 +6,7 @@
 
 ## 开发环境配置
 
-目前move开发只能在linux或mac下，使用windows的小伙伴可以开启WSL后在linux环境使用，参见[附录](#附录)。已经安装过的小伙伴可以自行跳过相关安装指令
+目前move开发只能在linux或mac下，使用windows的小伙伴可以开启WSL后在linux环境使用，必要情况下需要使用代理加速模块下载速度，参见[附录](#附录)。已经安装过的小伙伴可以自行跳过相关安装指令
 
 - [安装 rust](https://rustup.rs/)
 ```shell
@@ -201,9 +201,46 @@ sui move test
 ```powershell
 # 安装 Ubuntu-20.04
 wsl --install Ubuntu-20.04
+```
+
+如果是初次安装WSL，需要重启电脑。
+
+```powershell
 # 进入wsl环境
 wsl -d Ubuntu-20.04
 ```
+
+### 代理配置
+
+安装过程如果出现`timeout`的错误说明你的电脑无法正常下载相关资源，包括编译工具、git代码仓库等。
+
+首先我们需要检测你的代理有效
+
+```shell
+# 终端中输入此命令，网络无法连通情况下，会卡住没有消息返回，此时按ctrl+c结束执行
+curl google.com
+# 终端中输入此命令，将ip、port替换为你的代理信息，代理运行正常情况下会输出
+HTTP_PROXY=[ip]:[port] curl google.com
+```
+
+代理配置包括两部分：
+
+- 配置终端环境代理，可以解决大部分终端运行命令无法正常连接情况
+
+```shell
+# 终端中输入命令，将ip、port替换为你的代理信息
+export HTTP_PROXY=[ip]:[port]
+export HTTPS_PROXY=[ip]:[port]
+```
+
+- 配置git代理，可以解决连接github下载源码问题
+
+```shell
+# 终端中输入命令，将ip、port替换为你的代理信息
+git config --global http.proxy [ip]:[port]
+git config --global https.proxy [ip]:[port]
+```
+
 
 ### `dev_setup.sh` 脚本
 ```shell
