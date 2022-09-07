@@ -6,7 +6,7 @@
 
 ## 开发环境配置
 
-目前move开发只能在linux或mac下，使用windows的小伙伴可以开启WSL后在linux环境使用，必要情况下需要使用代理加速模块下载速度，参见[附录](#附录)。已经安装过的小伙伴可以自行跳过相关安装指令
+目前move开发只能在linux或mac下，使用windows的小伙伴可以开启WSL后在linux环境使用，必要情况下需要使用代理加速模块下载速度或使用加速节点替换为国内下载源，参见[附录](#附录)。已经安装过的小伙伴可以自行跳过相关安装指令
 
 - [安装 rust](https://rustup.rs/)
 ```shell
@@ -241,6 +241,15 @@ git config --global http.proxy [ip]:[port]
 git config --global https.proxy [ip]:[port]
 ```
 
+### github替换为国内下载源
+
+如果配置代理仍然不稳定无法成功运行，可以通过在`github.com`前添加`gitclone.com/`前缀，来使用国内下载源加速下载过程，这种办法适用于`git clone`项目源码，`Move.toml`依赖链接。例如
+
+`https://github.com/davidiw/aptos-core.git`
+
+添加前缀
+
+`https://gitclone.com/github.com/davidiw/aptos-core.git`
 
 ### `dev_setup.sh` 脚本
 ```shell
