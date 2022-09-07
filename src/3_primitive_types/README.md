@@ -10,19 +10,19 @@
 move new primitive_types
 cd primitive_types
 ```
-然后在 `sources/` 目录下新建文件 `my_script.move`，然后编写下面的代码，作为我们这节课程的“白板”。我们这里使用了 Move 中的 **script** ，关于这部分的内容应该在“模块与脚本”这节课中已经讲过了：
-```move
+然后在 `scripts/` 目录下新建文件 `my_script.move`，然后编写下面的代码，作为我们这节课程的“白板”。我们这里使用了 Move 中的 **script** ，关于这部分的内容应该在“模块与脚本”这节课中已经讲过了：
+```rust
 script {
     use std::debug;
 
     fun main() {
-        // 在这里动手写实践的代码
+        // Write the code here
     }
 }
 ```
 当我们想试着运行一下 main 函数时，可以在命令行中执行如下指令
 ```shell
-move sandbox run sources/my_script.move
+move sandbox run scripts/my_script.move
 ```
 
 
@@ -41,25 +41,25 @@ Move中的整型目前只有3种，分别是`u8`、`u64`和`u128`。Move不支�
 
 我们可以有几种不同的方式来声明变量：  
 1）先定义一个空的变量和类型，再设定它的值
-```move
+```rust
 let v: u8;
 v = 10; 
 ```
 2）在定义变量和类型的同时设定值
-```move
+```rust
 let v: u8 = 10;
 ```
 3)我们也可以不用显式的写明变量的类型，编译器可以通过代码的上下文对变量的类型进行推断，当无法进行推断的时候，编译器默认会认为是`u64`类型
-```move
+```rust
 let v = 10;
 ```
 4）也可以将类型添加在字面值的后面
-```move
+```rust
 let v = 10u64
 ```
 
 但如果字面值对于变量指定的(或编译器推断的)类型来说太大了，比如下面我们把 256 赋给一个 `u8` 类型的变量，而 `u8` 类型的范围是 0-255：
-```move
+```rust
 let _v: u8 = 256;
 ```
 因此编译器就会报错：
@@ -79,7 +79,7 @@ error[E04021]: invalid number after type inference
 
 #### 数学运算
 Move 中的整型都可以执行 `+`、`-`、`*`、`/`、`%` 运算，但符号两边的变量要求类型完全一致，也就是说 `u8` 只能和 `u8` 进行这些操作，`u8` 和 `u64` 就会报错，我们可以尝试一下：
-```move
+```rust
 let a: u8 = 10;
 let b: u64 = 10;
 a + b;
@@ -99,7 +99,7 @@ error[E04007]: incompatible types
 
 #### 按位运算
 整型还支持按位运算 按位与`&`、按位或`|`、按位亦或`^`
-```move
+```rust
 let a:u8 = 10;      // 1010
 let b:u8 = 9;       // 1001
 let r_and = a & b;  // 1000 -> 8
@@ -110,7 +110,7 @@ let r_xor = a ^ b;  // 0011 -> 3
 
 #### 位移运算
 位移运算有两种，左位移 `<<` 和右位移 `>>`
-```move
+```rust
 let a: u8 = 10;     // 1010
 let b = a << 1;     // 10100 -> 20
 let c = a >> 2;     // 10 -> 2
@@ -118,7 +118,7 @@ let c = a >> 2;     // 10 -> 2
 这里不要求位移符号的两侧类型相等，但是右侧只能是 `u8` 类型，这也很容易理解， `u8` 最大是255，但目前 Move 最多只有 `u128`。
 
 需要注意的是位移的位数不能**超过或等于**类型的字节数，也就是说 `u8`、`u64`、`u128` 分别最多只能位移 7、63、127 位，
-```move
+```rust
 let a: u8 = 10;     // 1010
 let b = a << 8;     // Abort!
 // Execution failed because of an arithmetic error (i.e., integer overflow/underflow, div/mod by zero, or invalid shift) in script at code offset 2
@@ -126,7 +126,7 @@ let b = a << 8;     // Abort!
 
 #### 对比运算
 Move 中只有整型可以进行对比运算 `<`、`>`、`>=`、`<=`，同样，符号两边的变量类型要一致
-```move
+```rust
 let a: u8 = 10;
 let b: u8 = 11;
 a > b;  // false
@@ -137,7 +137,7 @@ a <=b ; // true
 
 #### 等号与不等号
 虽然 Move 中只有整型可以进行对比运算，但是 `==` 和 `!=` 并不是整型独占的。不过不论如何，符号两侧的类型还是要求一致。
-```move
+```rust
 let a: u8 = 10;
 let b: u8 = 11;
 a == b;  // false
@@ -148,7 +148,7 @@ a != b;  // true
 #### 类型映射
 前面的运算基本要求符号两侧的变量类型一致，这样的限制可能会带来一些麻烦。因此 Move 提供了类型映射（casting），可以临时地转换类型，让符号两侧的变量可以执行运算。
 只需要通过 `(e as T)` 的形式就可以实现类型的映射：
-```move
+```rust
 let a: u8 = 10;
 let b: u64 = 2;
 let c = a + (b as u8); 
@@ -157,7 +157,7 @@ let c = a + (b as u8);
 
 ## 布尔型
 布尔型（bool）的字面值只有 `true` 和 `false`。布尔类型可以执行 逻辑与`&&`、逻辑或`||`、逻辑非`!` 的运算。
-```move
+```rust
 let a = true;
 let b = true;
 let c = false;
@@ -189,16 +189,16 @@ struct GlobalStorage {
 我们再介绍一下关于地址类型的语法，地址有两种类型：数值地址 和 命名地址。 任何有效的 u128 数值都可以用作地址的值。为了和整型区分，地址在使用的时候语法会根据上下文有所差异：
 
 1）被用作表达式时，需要在地址的字面值或者命名标志符前加上 `@` 符号，这里的表达式也包括作为函数的参数等，例如：
-```move
+```rust
 let addr_1 = @0xAB;
 let addr_2 = @1234;
 let addr_3 = @my_addr; 
 ```
 2）除此之外可以不用 `@` ，例如：
-```move
-// 导入模块时
+```rust
+// import module
 use 0x9::my_module;
-// 调用函数时
+// call function
 my_addr::m::foo();
 ```
 命名地址需要在 Move.toml 中声明：
@@ -213,7 +213,7 @@ addr = "0xC0FFEECAFE"
 ## Signer
 签署人（signer）是 Move 内建的一种类型，不可以被复制，包含了交易发送者的地址信息。它代表了发送者的权利，也就是说它可以访问发送者地址下的资源。
 可以把签署人类型看作是对地址类型的一种结构体封装：
-```move
+```rust
 struct signer has drop { addr: address }
 ```
 我们无法在代码中创建签署人类型的变量，只能通过给 Move 虚拟机传参来创建。一般 `signer` 通过 `address_of` 来获取内部地址的值。
@@ -221,19 +221,19 @@ struct signer has drop { addr: address }
 
 ## Address & Signer 演示
 然后我们简单的演示一下 `address` 和 `signer` 的使用，我们先在 `sources/` 下创建一个 `my_module.move` ：
-```move
+```rust
 module 0x42::M {
     struct Coin has key, store{
         value: u64
     }
 
     public fun give_coin(account: &signer) {
-        let coin = Coin { value: 1 };   // 创建一个 Coin
-        move_to(account, coin);     // 移动到account对应的地址下，作为account下的resource
+        let coin = Coin { value: 1 };   // Create a 'Coin' 
+        move_to(account, coin);     // move the coin to account's address as a resource
     }
 
     public fun balance_of(owner: address): u64 acquires Coin {
-        borrow_global<Coin>(owner).value    // 查询 owner 地址下 Coin 这个 resource 的 value
+        borrow_global<Coin>(owner).value    // query the value of the Coin at owner's address
     }
 }
 ```
@@ -241,7 +241,7 @@ module 0x42::M {
 这里可能涉及到一些特性和知识点，可以先不管他，只要知道这两个方法是做什么的就行了，后面的课程中会讲到这些点，这里只作简单的演示。
 
 然后我们修改 `my_script.move`：
-```move
+```rust
 script{
     use 0x1::debug;
     use std::signer;
@@ -261,7 +261,7 @@ script{
 然后我们发布一下我们的模块，并执行一下脚本：
 ```shell
 move sandbox publish
-move sandbox run sources/my_script.move --signers 0xCD
+move sandbox run scripts/my_script.move --signers 0xCD
 ```
 这里的参数 `--signer 0xCD` 就是告诉 VM 我们的发送者地址是 `0xCD`。
 我们可以看到打印的结果，表明操作成功了：
