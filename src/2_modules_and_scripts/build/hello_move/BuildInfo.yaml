@@ -1,0 +1,19 @@
+---
+compiled_package_info:
+  package_name: hello_move
+  address_alias_instantiation:
+    std: "00000000000000000000000000000001"
+  source_digest: 0151AF6FC2857D356C9BFB4DB786AF68402D8CE3E035425457AEF8E59D96E850
+  build_flags:
+    dev_mode: false
+    test_mode: false
+    generate_docs: false
+    generate_abis: false
+    install_dir: ~
+    force_recompilation: false
+    additional_named_addresses: {}
+    architecture: ~
+    fetch_deps_only: false
+dependencies:
+  - MoveNursery
+  - MoveStdlib
