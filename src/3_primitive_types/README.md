@@ -61,12 +61,12 @@ let v = 10;
 ```
 4）也可以将类型添加在字面值的后面
 ```rust
-let v = 10u64
+let v = 10u64;
 ```
 
 但如果字面值对于变量指定的(或编译器推断的)类型来说太大了，比如下面我们把 256 赋给一个 `u8` 类型的变量，而 `u8` 类型的范围是 0-255：
 ```rust
-let _v: u8 = 256;
+let v: u8 = 256;
 ```
 编译器就会报错：
 ```shell
@@ -142,10 +142,18 @@ Move 中只有整型可以进行对比运算 `<`、`>`、`>=`、`<=`，同样，
 ```rust
 let a: u8 = 10;
 let b: u8 = 11;
-a > b;  // false
-b < b;  // true
-a >= b; // false
-a <= b ; // true
+
+let c = a > b;  // false
+debug::print(&c);
+
+let c = a < b;  // true
+debug::print(&c);
+
+let c = a >= b; // false
+debug::print(&c);
+
+let c = a <= b ; // true
+debug::print(&c);
 ```
 
 #### 等号与不等号
@@ -153,8 +161,12 @@ a <= b ; // true
 ```rust
 let a: u8 = 10;
 let b: u8 = 11;
-a == b;  // false
-a != b;  // true
+
+let c = a == b;  // false
+debug::print(&c);
+
+let c = a != b;  // true
+debug::print(&c);
 ```
 关于相等性其他的一些知识点，会在学习 Move 语言后续的一些特性时讲到。
 
@@ -178,7 +190,7 @@ let b = true;
 let c = false;
 let r1 = a || b;        // true
 let r2 = a || b && c;   // true
-let r3 = !a            // false
+let r3 = !a;            // false
 
 debug::print(&r1);
 debug::print(&r2);
