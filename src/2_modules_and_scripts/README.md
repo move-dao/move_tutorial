@@ -10,8 +10,12 @@
 
 ####语法**_(Syntax)_**
 
+Module的语法结构如下
+
 ```rust
 module <address>::<identifier> {
     (<use> | <friend> | <type> | <function> | <constant>)*
 }
 ```
+
+其中`<address>`是一个有效的命名地址或字面量地址。
