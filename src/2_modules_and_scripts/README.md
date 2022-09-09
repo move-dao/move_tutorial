@@ -12,7 +12,7 @@ cd  modules_and_scripts
 创建完新的项目之后，不要忘记修改`Move.toml`文件，将MoveNursery依赖加上去。
 ```toml
 [package]
-name = "hello_move"
+name = "modules_and_scripts"
 version = "0.0.0"
 
 [addresses]
