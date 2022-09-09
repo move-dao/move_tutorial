@@ -45,7 +45,8 @@ module <address>::<identifier> {
 }
 ```
 其中`<address>`是一个有效的命名地址或字面量地址。
-从结构中可以看出，`Move`语言的模块包含了五种元素，分别是`use`、`friend`、`type`、`function`和`constant`。从根本上说，模块是`types`和`functions`的集合, `Uses`用来导入其它模块,或者直接导入其它模块中的结构类型和函数。`Friends`用来指定同一地址下可信的模块列表。`Constants`定义可以在模块中用使用的私有常量。这些元素的详细介绍会在后面的内容中展示。
+
+从语法结构中可以看出，`Move`语言的模块包含了五种元素，分别是`use`、`friend`、`type`、`function`和`constant`。从根本上说，模块是`types`和`functions`的集合, `Uses`用来导入其它模块,或者直接导入其它模块中的结构类型和函数。`Friends`用来指定同一地址下可信的模块列表。`Constants`定义可以在模块中用使用的私有常量。这些元素的详细介绍会在后面的内容中展示。
 
 在`sources/`目录下，新建文件，并命名为`my_module.move`, 然后编写如下代码：
 
