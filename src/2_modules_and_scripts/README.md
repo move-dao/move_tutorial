@@ -2,7 +2,7 @@
 
 ## 概要
 
-本节课我们将介绍一下Move中两个不同的程序**Modules**和**Scripts**。
+本节课我们将介绍一下Move中两个不同的程序***Modules***和***Scripts***。
 
 我们首先通过新建一个 Move 项目:
 ```shell
@@ -20,7 +20,7 @@ std =  "0x1"
 
 [dependencies]
 MoveStdlib = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib", rev = "main" }
-#将下面将MoveNursery依赖添加到Move.toml文件中。
+#将下面MoveNursery依赖添加到Move.toml文件中。
 MoveNursery = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib/nursery", rev = "main" }
 ```
 
@@ -49,7 +49,7 @@ module 0xC0FFEE::my_module{
     const ENOT_POSITIVE: u64 = 0;
 
     public fun isprime(x: u64):bool{
-        assert!(x>0, ENOT_POSITIVE);
+        //assert!(x>0, ENOT_POSITIVE);
         let example = Example{i:x};
         if (example.i == 1) {
             false
