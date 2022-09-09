@@ -30,7 +30,14 @@ MoveNursery = { git = "https://github.com/move-language/move.git", subdir = "lan
 
 #### 语法(Syntax)
 
-Module的语法结构如下
+首先,模块名称可以以字母 `a` 到 `z` 或字母 `A` 到 `Z` 开头。在第一个字符之后，模块名可以包含下划线 `_` 、字母 `a` 到 `z` 、字母 `A` 到 `Z` 或数字 `0` 到 `9`。通常，模块名称以大写字母开头。
+
+```rust
+module my_module {}
+module MyTestModule_1 {}
+```
+
+模块***Module***的语法结构如下
 
 ```rust
 module <address>::<identifier> {
@@ -45,11 +52,15 @@ module <address>::<identifier> {
 ```rust
 module 0xC0FFEE::my_module{
     struct Example has copy, drop{i: u64}
+    
+    use std::debug;
+    use std::string;
 
-    const ENOT_POSITIVE: u64 = 0;
+    const ENOT_POSITIVE_NUMBER: u64 = 0;
 
     public fun isprime(x: u64):bool{
-        //assert!(x>0, ENOT_POSITIVE);
+        debug::print(&string::utf8(b"Start"));
+        //assert!(x > 0, ENOT_POSITIVE_NUMBER);
         let example = Example{i:x};
         if (example.i == 1) {
             false
