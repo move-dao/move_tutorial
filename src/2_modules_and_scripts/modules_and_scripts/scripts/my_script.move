@@ -1,10 +1,10 @@
 script{
     use std::debug;
     use std::string;
-    use move_dao::my_module;
+    use move_dao::my_module::is_prime;
 
     fun my_script(){
-        if (0xC0FFEE::my_module::isprime(7)){
+        if (is_prime(7)){
             debug::print(&string::utf8(b"Is a Prime Number"));
         }else{
             debug::print(&string::utf8(b"Not a Prime Number"));
