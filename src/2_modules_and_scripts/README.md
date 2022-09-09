@@ -56,12 +56,13 @@ module 0xC0FFEE::my_module{
     use std::debug;
     use std::string;
 
-    struct Example {
+    struct Example has drop{
         i: u64
     }
 
     const ENOT_POSITIVE_NUMBER: u64 = 0;
-
+    
+    //判断输入参数是否为质数的函数
     public fun is_prime(x: u64): bool {
         debug::print(&string::utf8(b"Start"));
         
@@ -69,22 +70,57 @@ module 0xC0FFEE::my_module{
 
         if (example.i == 1) {
             false
-        } else {
-            let num = example.i - 1;
-            let isp = true;
-            while(num >= 2) {
-                if (example.i % num == 0) {
-                    isp = false;
-                    break
-                };
-                num = num - 1;
-            };
+        } else if(example.i % 2 == 0){
+                    false
+               }else{
+                    let num = example.i - 1;
+                    let isp = true;
+                    while(num >= 2) {
+                        if (example.i % num == 0) {
+                            isp = false;
+                            break
+                        };
+                        num = num - 1;
+                    };
 
-            isp
-        }
+                    isp
+                }
     }
 
 }
 ```
 
-从上述代码中，可以看到`use`、`type`（代码中是`struct`）、`constants`和`function`这些元素都出现在了里面。
+`module 0xC0FFEE::my_module`这部分指定模块`my_module`会被发布到全局存储中0xC0FFEE这个地址之下。
+
+模块也可以用命名地址来声明，在使用命名地址之前，要将该地址的命名和要分配给它的字面量地址添加到`Move.toml`文件中。
+
+```toml
+[package]
+name = "modules_and_scripts"
+version = "0.0.0"
+
+[addresses]
+std =  "0x1"
+#下面的命名地址添加到Move.toml文件中。
+move_dao = "0xC0FFEE"
+
+[dependencies]
+MoveStdlib = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib", rev = "main" }
+#将下面MoveNursery依赖添加到Move.toml文件中。
+MoveNursery = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib/nursery", rev = "main" }
+```
+
+修改完`Move.toml`文件之后，修改在`sources/`目录下的`my_module.move`文件。
+将
+
+```rust
+module 0xC0FFEE::my_module{
+```
+
+修改为
+
+```rust
+module move_dao::my_module{
+```
+
+即可。
