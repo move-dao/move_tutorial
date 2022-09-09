@@ -30,7 +30,7 @@ MoveNursery = { git = "https://github.com/move-language/move.git", subdir = "lan
 
 #### 语法(Syntax)
 
-首先,模块名称可以以字母 `a` 到 `z` 或字母 `A` 到 `Z` 开头。在第一个字符之后，模块名可以包含下划线 `_` 、字母 `a` 到 `z` 、字母 `A` 到 `Z` 或数字 `0` 到 `9`。通常，模块名称以大写字母开头。
+首先,模块名称可以以字母 `a` 到 `z` 或字母 `A` 到 `Z` 开头。在第一个字符之后，模块名可以包含下划线 `_` 、字母 `a` 到 `z` 、字母 `A` 到 `Z` 或数字 `0` 到 `9`。通常，模块名称以小写字母开头。
 
 ```rust
 module my_module {}
@@ -50,34 +50,40 @@ module <address>::<identifier> {
 在`sources/`目录下，新建文件，并命名为`my_module.move`, 然后编写如下代码：
 
 ```rust
-module 0xC0FFEE::my_module{
-    struct Example has copy, drop{i: u64}
-    
+module movedao::my_module{
+
     use std::debug;
     use std::string;
 
+    struct Example {
+        i: u64
+    }
+
     const ENOT_POSITIVE_NUMBER: u64 = 0;
 
-    public fun isprime(x: u64):bool{
+    public fun is_prime(x: u64): bool {
         debug::print(&string::utf8(b"Start"));
-        //assert!(x > 0, ENOT_POSITIVE_NUMBER);
-        let example = Example{i:x};
+        
+        let example = Example { i: x };
+
         if (example.i == 1) {
             false
-        }else{
+        } else {
             let num = example.i - 1;
             let isp = true;
-            while(num>=2){
-                if (example.i % num == 0){
+            while(num >= 2) {
+                if (example.i % num == 0) {
                     isp = false;
                     break
                 };
                 num = num - 1;
             };
+
             isp
         }
     }
 
 }
 ```
+
 上述代码实现了一个简单的判断质数的方法。
