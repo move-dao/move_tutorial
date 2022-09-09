@@ -192,3 +192,5 @@ move sandbox run scripts/my_script.move
 node -e "console.log([73, 115, 32, 97, 32, 80, 114, 105, 109, 101, 32, 78, 117, 109, 98, 101, 114].map(code => String.fromCharCode(code)).join(''))"
 ```
 
+***脚本Script***的功能非常有限—它们不能声明友元、结构类型或访问全局存储， 他们的主要作用主要是调用模块函数.
+
