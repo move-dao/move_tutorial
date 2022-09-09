@@ -1,7 +1,7 @@
 script{
     use std::debug;
     use std::string;
-    //use 0xC0FFEE::my_module;
+    use move_dao::my_module;
 
     fun my_script(){
         if (0xC0FFEE::my_module::isprime(7)){
