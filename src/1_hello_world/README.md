@@ -99,9 +99,20 @@ MoveNursery = { git = "https://github.com/move-language/move.git", subdir = "lan
 ```move
 module 0xCAFE::my_module {
     use std::string;
+    use std::debug;
 
     public fun speak(): string::String {
         string::utf8(b"Hello World")
+    }
+
+    #[test]
+    public fun test_speak() {
+        let res = speak();
+
+        debug::print(&res);
+
+        let except = string::utf8(b"Hello World");
+        assert!(res == except, 0);
     }
 }
 ```
@@ -140,6 +151,7 @@ cd hello_aptos
 ```move
 module 0xCAFE::my_module {
     use std::string;
+    use std::debug;
 
     public fun speak(): string::String {
         string::utf8(b"Hello World")
@@ -147,9 +159,12 @@ module 0xCAFE::my_module {
 
     #[test]
     public fun test_speak() {
-        use aptos_std::debug;
+        let res = speak();
 
-        debug::print(&speak());
+        debug::print(&res);
+
+        let except = string::utf8(b"Hello World");
+        assert!(res == except, 0);
     }
 }
 ```
@@ -289,5 +304,7 @@ cargo install --path language/move-analyzer
 
 ## 参考
 
-- [https://move-language.github.io/move/](https://move-language.github.io/move/)
-- [https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md](https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md)
+- [Move官方仓库](https://move-language.github.io/move/)
+- [Move Book中文版](https://github.com/move-language/move/tree/main/language/documentation/book/translations/move-book-zh)
+- [Move book 教程英文版](https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md)
+- [Move book 教程中文版](https://move-dao.github.io/move-book-zh/move-tutorial.html)
