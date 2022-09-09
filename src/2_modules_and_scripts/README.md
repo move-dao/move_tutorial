@@ -47,6 +47,8 @@ module <address>::<identifier> {
 
 其中`<address>`是一个有效的命名地址或字面量地址。
 
+模块中的所有元素可以以
+
 在`sources/`目录下，新建文件，并命名为`my_module.move`, 然后编写如下代码：
 
 ```rust
