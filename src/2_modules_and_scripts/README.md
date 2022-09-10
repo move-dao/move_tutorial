@@ -53,40 +53,20 @@ module <address>::<identifier> {
 ```rust
 module 0xC0FFEE::my_module{
 
-    use std::debug;
-    use std::string;
-
     struct Example has drop{
         i: u64
     }
 
     const ENOT_POSITIVE_NUMBER: u64 = 0;
     
-    //判断输入参数是否为质数的函数
-    public fun is_prime(x: u64): bool {
-        debug::print(&string::utf8(b"Start"));
-        
+    public fun is_even(x: u64): bool {  
         let example = Example { i: x };
-
-        if (example.i == 1) {
+        if(example.i % 2 == 0){
+            true
+        }else{
             false
-        } else if(example.i % 2 == 0){
-                    false
-               }else{
-                    let num = example.i - 1;
-                    let isp = true;
-                    while(num >= 2) {
-                        if (example.i % num == 0) {
-                            isp = false;
-                            break
-                        };
-                        num = num - 1;
-                    };
-
-                    isp
-                }
+        }
     }
-
 }
 ```
 
@@ -130,7 +110,7 @@ module move_dao::my_module{
 ```rust
 script {
     fun example() {
-        move_dao::my_module::is_prime(7);
+        move_dao::my_module::is_even(7);
     }
 }
 ```
@@ -140,12 +120,12 @@ script {
 ```rust
 script {
     fun example() {
-        0xC0FFEE::my_module::is_prime(7);
+        0xC0FFEE::my_module::is_even(7);
     }
 }
 ```
 
-但是在源码级别，这两个并不等价 - 函数`my_module::is_prime`必须通过`move_dao`命名地址访问，而不是通过分配给该地址的数值访问。
+但是在源码级别，这两个并不等价 - 函数`my_module::is_even`必须通过`move_dao`命名地址访问，而不是通过分配给该地址的数值访问。
 
 ### 脚本(Script)
 
@@ -171,14 +151,12 @@ script {
 script{
     use std::debug;
     use std::string;
-    use move_dao::my_module::is_prime;
 
-    fun my_script(){
-        if (is_prime(7)){
-            debug::print(&string::utf8(b"Is a Prime Number"));
-        }else{
-            debug::print(&string::utf8(b"Not a Prime Number"));
-        }
+    use move_dao::my_module::is_even;
+
+    fun my_script(_x: u64){
+        assert!(is_even(_x), 0);
+        debug::print(&string::utf8(b"Even"));
     }
 }
 ```
@@ -187,9 +165,24 @@ script{
 
 ```shell
 move sandbox publish
-move sandbox run scripts/my_script.move
-# 上述命令输出字符串以char code形式展现，我们利用node转换下查看内容
-node -e "console.log([73, 115, 32, 97, 32, 80, 114, 105, 109, 101, 32, 78, 117, 109, 98, 101, 114].map(code => String.fromCharCode(code)).join(''))"
+#--args 9是告诉VM给script中函数传入参数值9
+move sandbox run scripts/my_script.move --args 9
+```
+
+运行之后，应该等到如下结果:
+
+```shell
+Execution aborted with code 0 in transaction script
+```
+
+这里因为给***Script***中传入的参数值`9`不是偶数，并且调用了断言`assert`，所以脚本`my_script.move`的运行被中止了， 没有继续往下执行。
+
+如果再次运行脚本`my_script.move`，并传入参数值10,应该得到的如下输出:
+
+```shell
+[debug] (&) { [69, 118, 101, 110] }
+# 利用node转换下转出的char code,结果应该Even
+node -e "console.log([69, 118, 101, 110] .map(code => String.fromCharCode(code)).join(''))"
 ```
 
 ***脚本Script***的功能非常有限—它们不能声明友元、结构类型或访问全局存储， 他们的主要作用主要是调用模块函数.
