@@ -169,7 +169,7 @@ move sandbox publish
 move sandbox run scripts/my_script.move --args 9
 ```
 
-运行之后，应该等到如下结果:
+运行之后，VM提示了如下信息:
 
 ```shell
 Execution aborted with code 0 in transaction script
