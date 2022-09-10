@@ -50,9 +50,11 @@ module <address>::<identifier> {
 <summary>字面量地址</summary>
 <b>字面量</b>是用于表达源码中一个固定值的表示法，整数、浮点数和字符串等等都是字符串。
 比如在Java中:<br/>
+<br/>
 <code>
 int a = 1;
 </code><br/>
+<br/>
  <code>a</code>是声明的变量，那赋值符<code>=</code>后面的<code>1</code>就是字面量。总之，字面量就是没有用标识符封装起来的量，是“值”的原始状态。<br/>
 那么字面量地址就是一个实际的地址的值，比如<code>0xCAFE</code>、<code>0xC0FFEE</code>都是字面量地址，而命名地址在使用前，要在<code>Move.toml</code>文件中声明并分配一个字面量地址。
 </details>
