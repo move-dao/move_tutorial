@@ -48,6 +48,7 @@ module <address>::<identifier> {
 
 <details>
 <summary>字面量地址</summary>
+<br/>
 <b>字面量</b>是用于表达源码中一个固定值的表示法，整数、浮点数和字符串等等都是字符串。
 比如在Java中:<br/>
 <br/>
