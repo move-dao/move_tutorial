@@ -49,12 +49,12 @@ module <address>::<identifier> {
 <details>
 <summary>字面量地址</summary>
 __字面量__是用于表达源码中一个固定值的表示法，整数、浮点数和字符串等等都是字符串。
-比如在Java中:
+比如在Java中:<br/>
 <code>
 int a = 1;
-</code>
-`a`是声明的变量，那赋值符`=`后面的`1`就是字面量。总之，字面量就是没有用标识符封装起来的量，是“值”的原始状态。
-那么字面量地址就是一个实际的地址的值，比如`0xCAFE`、`0xC0FFEE`都是字面量地址，而命名地址在使用前，要在`Move.toml`文件中声明并分配一个字面量地址。
+</code><br/>
+ <code>a</code>是声明的变量，那赋值符<code>=</code>后面的<code>1</code>就是字面量。总之，字面量就是没有用标识符封装起来的量，是“值”的原始状态。<br/>
+那么字面量地址就是一个实际的地址的值，比如<code>0xCAFE</code>、<code>0xC0FFEE</code>都是字面量地址，而命名地址在使用前，要在<code>Move.toml</code>文件中声明并分配一个字面量地址。
 </details>
 
 从语法结构中可以看出，`Move`语言的模块包含了五种元素，分别是`use`、`friend`、`type`、`function`和`constant`。从根本上说，模块是`types`和`functions`的集合, `Uses`用来导入其它模块,或者直接导入其它模块中的结构类型和函数。`Friends`用来指定同一地址下可信的模块列表。`Constants`定义可以在模块中用使用的私有常量。这些元素的详细介绍会在后面的内容中展示。
