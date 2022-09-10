@@ -177,11 +177,11 @@ Execution aborted with code 0 in transaction script
 
 这里因为给***Script***中传入的参数值`9`不是偶数，并且调用了断言`assert`，所以脚本`my_script.move`的运行被中止了， 没有继续往下执行。
 
-如果再次运行脚本`my_script.move`，并传入参数值10,应该得到的如下输出:
+如果再次运行脚本`my_script.move`，并传入参数值10，应该得到的如下输出:
 
 ```shell
 [debug] (&) { [69, 118, 101, 110] }
-# 利用node转换下转出的char code,结果应该Even
+# 利用node转换下输出的char code,结果应该Even
 node -e "console.log([69, 118, 101, 110] .map(code => String.fromCharCode(code)).join(''))"
 ```
 
