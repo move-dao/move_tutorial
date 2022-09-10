@@ -4,7 +4,7 @@
 
 本节课我们将介绍一下Move中两个不同的程序***Modules***和***Scripts***。
 
-我们首先通过新建一个 Move 项目:
+我们首先新建一个 Move 项目:
 ```shell
 move new modules_and_scripts
 cd  modules_and_scripts
