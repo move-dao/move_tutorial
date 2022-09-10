@@ -185,5 +185,5 @@ Execution aborted with code 0 in transaction script
 node -e "console.log([69, 118, 101, 110] .map(code => String.fromCharCode(code)).join(''))"
 ```
 
-***脚本Script***的功能非常有限—它们不能声明友元、结构类型或访问全局存储， 他们的主要作用主要是调用模块函数.
+***脚本Script***的功能非常有限—它们不能声明友元、结构类型或访问全局存储， 它们的主要作用主要是调用模块函数.
 
