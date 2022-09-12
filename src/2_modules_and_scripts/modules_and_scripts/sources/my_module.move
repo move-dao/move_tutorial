@@ -1,29 +1,17 @@
-module 0xC0FFEE::my_module{
-    struct Example has copy, drop{i: u64}
-    
-    use std::debug;
-    use std::string;
+module move_dao::my_module{
 
-    const ENOT_POSITIVE_NUMBER: u64 = 0;
-
-    public fun isprime(x: u64):bool{
-        debug::print(&string::utf8(b"Start"));
-        //assert!(x > 0, ENOT_POSITIVE_NUMBER);
-        let example = Example{i:x};
-        if (example.i == 1) {
-            false
-        }else{
-            let num = example.i - 1;
-            let isp = true;
-            while(num>=2){
-                if (example.i % num == 0){
-                    isp = false;
-                    break
-                };
-                num = num - 1;
-            };
-            isp
-        }
+    struct Example has drop{
+        i: u64
     }
 
+    const ENOT_POSITIVE_NUMBER: u64 = 0;
+    
+    public fun is_even(x: u64): bool {  
+        let example = Example { i: x };
+        if(example.i % 2 == 0){
+            true
+        }else{
+            false
+        }
+    }
 }
