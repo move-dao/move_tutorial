@@ -12,6 +12,12 @@
 ```shell
 # 安装rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# 遇到Proceed with installation (default)时按enter键
+# 安装完成后，提示Rust is installed now. Great!
+# 会提示让你配置环境变量，跟着他的提示做
+# 例如：
+# To configure your current shell, run:
+# source "$HOME/.cargo/env"
 # 检测安装是否成功
 cargo --version
 ```
@@ -25,6 +31,8 @@ git clone https://github.com/move-language/move.git
 # 安装编译依赖工具
 cd move
 ./scripts/dev_setup.sh -ypt
+# 安装所需依赖
+# Proceed with installing necessary dependencies? (y/N) > y
 # 更新终端环境
 source ~/.profile
 # 编译并安装 move cli（需要一段时间）
@@ -99,9 +107,20 @@ MoveNursery = { git = "https://github.com/move-language/move.git", subdir = "lan
 ```move
 module 0xCAFE::my_module {
     use std::string;
+    use std::debug;
 
     public fun speak(): string::String {
         string::utf8(b"Hello World")
+    }
+
+    #[test]
+    public fun test_speak() {
+        let res = speak();
+
+        debug::print(&res);
+
+        let except = string::utf8(b"Hello World");
+        assert!(res == except, 0);
     }
 }
 ```
@@ -140,6 +159,7 @@ cd hello_aptos
 ```move
 module 0xCAFE::my_module {
     use std::string;
+    use std::debug;
 
     public fun speak(): string::String {
         string::utf8(b"Hello World")
@@ -147,9 +167,12 @@ module 0xCAFE::my_module {
 
     #[test]
     public fun test_speak() {
-        use aptos_std::debug;
+        let res = speak();
 
-        debug::print(&speak());
+        debug::print(&res);
+
+        let except = string::utf8(b"Hello World");
+        assert!(res == except, 0);
     }
 }
 ```
@@ -187,9 +210,15 @@ module hello_sui::my_module {
 ```
 
 ```shell
+# 修改Move.toml
+# 将rev修改为devnet
+```
+
+```shell
 # 运行测试
 sui move test
 ```
+
 
 ## 总结
 本节我们学习了如何搭建开发环境，并在move、aptos、sui下分别写了hello world小程序。我们发现语法上几乎一致，每种环境又有特有的内容。同学们可以随意修改代码编译测试，另外可以查看`move`、`aptos`、`sui`命令行的帮助内容，看看这些命令下还有哪些好玩的东西。接下来我们要专注于Move语法本身，学习Move模块及脚本相关内容，那我们接下来见。
@@ -289,5 +318,7 @@ cargo install --path language/move-analyzer
 
 ## 参考
 
-- [https://move-language.github.io/move/](https://move-language.github.io/move/)
-- [https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md](https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md)
+- [Move官方仓库](https://move-language.github.io/move/)
+- [Move Book中文版](https://github.com/move-language/move/tree/main/language/documentation/book/translations/move-book-zh)
+- [Move book 教程英文版](https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md)
+- [Move book 教程中文版](https://move-dao.github.io/move-book-zh/move-tutorial.html)

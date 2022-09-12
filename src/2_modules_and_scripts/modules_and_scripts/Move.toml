@@ -1,0 +1,10 @@
+[package]
+name = "modules_and_scripts"
+version = "0.0.0"
+
+[dependencies]
+MoveStdlib = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib", rev = "main" }
+MoveNursery = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib/nursery", rev = "main" }
+
+[addresses]
+movedao =  "0x1"
