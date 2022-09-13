@@ -93,7 +93,7 @@ Execution aborted with code 1 in module 00000000000000000000000000000042::exampl
 ```
 
 需要注意的是，常量必须以大写字母`A`到`Z`开头，后面可以用可以包含下划线 `_`、字母 `a` 到 `z`、字母 `A` 到 `Z` 或数字 `0` 到 `9`,否则将会报错
-虽然不包含小写字母的写法是被允许的,但是[编码规范](https://move-dao.github.io/move-book-zh/coding-conventions.html)中常量的定义只使用大写字母，
+虽然包含小写字母的写法是被允许的,但是[编码规范](https://move-dao.github.io/move-book-zh/coding-conventions.html)中常量的定义只使用大写字母，
 每个单词之间用下划线分割。
 
 ```rust
