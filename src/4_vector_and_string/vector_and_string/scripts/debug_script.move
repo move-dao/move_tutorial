@@ -5,7 +5,9 @@ script {
     fun main() {
 
         // create an empty vector
-        // vector[];  // Error, can not infer the element type
+        let v = vector[]; 
+        let another_v = vector[1, 2, 3];
+        assert!(v != another_v, 0);
         vector<u8>[];
         vector<u64>[];
         vector<u128>[];
@@ -14,6 +16,7 @@ script {
         vector<M::Coin>[];
         (vector<u64>[]: vector<u64>);   // Parentheses are required
         (vector[]: vector<u64>);
+        let _v: vector<u8> = vector[];
         // (vector<u64>[]: vector);    // Error
         
 
