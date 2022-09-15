@@ -300,7 +300,7 @@ assert!(string::is_empty(&s) == false, 0);
 let s = string::utf8(vector[72, 101, 108, 108, 111, 33, 10]);
 assert!(string::length(&s) == 7, 0);
 ```
-- `append(s: &mut String, r: String)`
+- `append(s: &mut String, r: String)`     
   在 `s` 后面追加字符串 `r` ：
 ```rust
 let s = string::utf8(vector[72, 101, 108]);
@@ -336,7 +336,7 @@ debug::print(&s);
 ```shell
 [debug] (&) { [72, 101, 111, 33, 10, 108] }
 ```
-- `sub_string(s: &String, i: u64, j: u64): String`
+- `sub_string(s: &String, i: u64, j: u64): String`      
   根据给定的索引 `i` 和 `j` 返回子字符串：
 ```rust
 let s = string::utf8(vector[72, 101, 108, 108, 111, 33, 10]);
@@ -347,7 +347,7 @@ debug::print(&sub_s);
 ```shell
 [debug] (&) { [108, 108, 111] }
 ```
-- `index_of(s: &String, r: &String): u64 `
+- `index_of(s: &String, r: &String): u64 `    
   查询 `r` 字符串在 `s` 中第一次出现的索引值，若果 `r` 不是 `s` 的子字符串，则返回 `s` 的长度：
 ```rust
 let s = string::utf8(vector[72, 101, 108, 108, 111, 33, 10]);
