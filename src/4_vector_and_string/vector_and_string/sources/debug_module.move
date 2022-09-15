@@ -1,13 +1,15 @@
 module cafe::M{
     // use std::vector;
 
-    struct Coin has drop, copy {
+    struct Coin has drop {
         value: u64
     }
 
     public fun create_coin(value: u64): Coin {
         Coin{ value }
     }
+
+    fun destroy_any_vector<T: drop>(_vec: vector<T>) { }
 
     #[test]
     fun coin_vec(){
