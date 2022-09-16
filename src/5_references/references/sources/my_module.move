@@ -34,7 +34,7 @@ module move_dao::my_module{
         let t: &mut Token = &mut token;
         let _a :&u64 = &t.amount;
         _a = &y;
-        debug::print(&token.amount);
+        debug::print(_a);
     }
 
 }
