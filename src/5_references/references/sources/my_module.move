@@ -1,6 +1,6 @@
 module move_dao::my_module{
 
-    struct Token has drop, copy, key{
+    struct Token has copy, key, drop{
         amount: u64
     }
 
@@ -32,9 +32,8 @@ module move_dao::my_module{
         let token = Token{amount: x};
         //let temp = token;
         let t: &mut Token = &mut token;
-        let _a :&mut u64 = &mut t.amount;
-        let b = freeze(_a);
-        *_a = y;
+        let _a :&u64 = &t.amount;
+        _a = &y;
         debug::print(&t.amount);
     }
 
