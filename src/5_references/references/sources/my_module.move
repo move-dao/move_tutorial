@@ -5,36 +5,50 @@ module move_dao::my_module{
     }
 
     use std::debug;
-    use std::string;
 
     const EVALUE_NOT_CHANGED :u64 = 1;
+
+    public fun publish_token(): Token{
+        Token{amount:0}
+    }
 
     public fun manipulate_value(x: u64, y : u64){
         let temp :u64 = x;
         let a: &mut u64 = &mut x;
         *a = y;
         assert!(x != temp, EVALUE_NOT_CHANGED);
-        debug::print(&string::utf8(b"Changed"));
+        debug::print(&x);
     }
 
     public fun manipulate_token(x: u64, y: u64){
         let token = Token{amount: x};
-        debug::print(&token.amount);
-        let temp: Token = token;
         let t: &mut Token = &mut token;
         *t = Token{amount: y};
-        assert!(token != temp, EVALUE_NOT_CHANGED);
+        assert!(token.amount != x, EVALUE_NOT_CHANGED);
         debug::print(&token.amount);
-        debug::print(&string::utf8(b"Changed"));
     }
 
     public fun manipulate_token_amount(x: u64, y:u64){
         let token = Token{amount: x};
-        //let temp = token;
         let t: &mut Token = &mut token;
-        let _a :&u64 = &t.amount;
-        _a = &y;
-        debug::print(&t.amount);
+        let t_ext :&mut u64 = &mut t.amount;
+        *t_ext = y;
+        assert!(token.amount != x, EVALUE_NOT_CHANGED);
+        debug::print(&token.amount);
+    }
+
+    public fun tokenTest(token: &mut Token){
+
+        let t_ref = token;
+        let t_ext = &mut t_ref.amount;
+        let t_ref2 = token;
+
+        *t_ext = 100;
+        *t_ref = Token{amount: 99};
+        *t_ref = Token{amount: 98};
+        *t_ref2 = Token{amount: 96};
+        assert!(token.amount == 96, 0);
+        debug::print(token);
     }
 
 }
