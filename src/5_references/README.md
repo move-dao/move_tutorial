@@ -47,26 +47,60 @@ Move提供了引用运算符,可以用来创建引用、扩展引用以及把一
 | `&e.f`      | `&T` 其中 `e.f: T`                       | 创建结构 `e` 的字段 `f` 的不可变引用
 | `&mut e.f`  | `&mut T` 其中`e.f: T`                    | 创建结构 `e` 的字段 `f` 的可变引用
 | `freeze(e)` | `&T` 其中`e: &mut T`                     | 将可变引用 `e` 转换为不可变引用
-| `&e` | `T` 其中 `e` 为 `&T` 或 `&mut T` | 读取 `e` 所指向的值
-| `*e1 = e2` | () 其中 `e1: &mut T` 和 `e2: T` | 用 `e2` 更新 `e1` 中的值
+
 
 ### 不可变引用
 
-运算符`&e`和`&e.f`可以用来创建新的引用, 但是要注意的是，多重引用在Move语言里是不允许的：
+运算符`&e`和`&e.f`可以用来创建新的不可变引用, 但是要注意的是，多重引用在Move语言里是不允许的：
 
 ```rust
 let token = Token{amount: 1};
 let x: u64 = 0;
-let y: &u64 = &x; //创建u64类型的引用y
-let t_ref : &Token = &token; //创建Token类型的引用t_ref
+let y: &u64 = &x; //创建u64类型的不可变引用y
+let t_ref : &Token = &token; //创建Token类型的不可变引用t_ref
 //下面的语句是错误的，编译时会报错。
 let z: &&u64 = &y;
 ```
 
-在结构中，运算符`&e`和`&e.f`也可以扩展引用：
+在结构中，运算符`&e`和`&e.f`也可以扩展不可变引用：
 
 ```rust
 let token = Token{amount: 1};
 let t_ref : &Token = &token;
 let a_ref : &u64 = &t_ref.amount;
+```
+
+### 不可变引用
+
+运算符`&mut e`和`&mut e.f`可以用来创建新的可变引用, 同样也不能多重引用：
+
+```rust
+let token = Token{amount: 1};
+let x: u64 = 0;
+let y: &mut u64 = &mut x; //创建u64类型的可变引用y
+let t_ref : &mut Token = &mut token; //创建Token类型的可变引用t_ref
+```
+
+在结构中，运算符`&mut e`和`&mut e.f`也可以扩展不可变引用, 但是在扩展的时候需要注意的是被扩展的引用必须是可变的，除非扩展的是一个不可变引用：
+
+```rust
+let token = Token{amount: 1};
+let t_ref : &mut Token = &mut token;
+let a_ref : &mut u64 = &mut t_ref.amount;
+
+//下列代码是有效的, 但引用a不能更新原token的值, 而引用t可以
+let t: &mut Token = &mut token;
+let a :&u64 = &t.amount;
+
+//下列代码无效，编译器会报错
+let t: &Token = &token;
+let a :&mut u64 = &mut t.amount;
+```
+
+可以调用freeze将一个不可变引用转换成不可变引用.
+
+```rust
+let x: u64 = 0;
+let y: &mut u64 = &mut x; //创建u64类型的可变引用y
+let z = freeze(y);  //将可变引用y转换成不可变引用并赋给z
 ```
