@@ -45,9 +45,8 @@ module move_dao::my_module{
 
         *t_ext = 100;
         *t_ref = Token{amount: 99};
-        *t_ref = Token{amount: 98};
-        *t_ref2 = Token{amount: 96};
-        assert!(token.amount == 96, 0);
+        *t_ref2 = Token{amount: 98};
+        assert!(token.amount == 98, 0);
         debug::print(token);
     }
 
