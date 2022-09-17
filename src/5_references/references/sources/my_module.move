@@ -43,7 +43,7 @@ module move_dao::my_module{
         let t_ext = &mut t_ref.amount;
         let t_ref2 = token;
 
-        *t_ext = 100;
+        *t_ext = 100;       
         *t_ref = Token{amount: 99};
         *t_ref2 = Token{amount: 98};
         assert!(token.amount == 98, 0);
