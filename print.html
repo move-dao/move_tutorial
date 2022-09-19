@@ -1,0 +1,1857 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Move 教程</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="0_introduction.html">简介</a></li><li class="chapter-item expanded "><a href="1_hello_world/index.html"><strong aria-hidden="true">1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="2_modules_and_scripts/index.html"><strong aria-hidden="true">2.</strong> 模块及脚本</a></li><li class="chapter-item expanded "><a href="3_primitive_types/index.html"><strong aria-hidden="true">3.</strong> Move基本类型</a></li><li class="chapter-item expanded "><a href="4_vector_and_string/index.html"><strong aria-hidden="true">4.</strong> 向量与字符串</a></li><li class="chapter-item expanded "><a href="5_references/index.html"><strong aria-hidden="true">5.</strong> 引用</a></li><li class="chapter-item expanded "><a href="6_constants/index.html"><strong aria-hidden="true">6.</strong> 常量</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Move 教程</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="简介"><a class="header" href="#简介">简介</a></h1>
+<p>Move是一种安全、沙盒式和形式化验证的开发语言。它诞生于Facebook的Libra项目（后更名为Diem）。 Move让开发者写出灵活的资源管理程序，同时保证安全防止恶意攻击。Move也可用于区块链外的开发场景。
+好了，让我们先写一个Hello World程序吧。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
+<h2 id="概要"><a class="header" href="#概要">概要</a></h2>
+<p>本节课我们将安装开发环境、配置IDE并在move、aptos、sui下分别写一个简单的Hello World程序</p>
+<h2 id="开发环境配置"><a class="header" href="#开发环境配置">开发环境配置</a></h2>
+<p>目前move开发只能在linux或mac下，使用windows的小伙伴可以开启WSL后在linux环境使用，必要情况下需要使用代理加速模块下载速度或使用加速节点替换为国内下载源，参见<a href="1_hello_world/index.html#%E9%99%84%E5%BD%95">附录</a>。已经安装过的小伙伴可以自行跳过相关安装指令</p>
+<ul>
+<li><a href="https://rustup.rs/">安装 rust</a></li>
+</ul>
+<pre><code class="language-shell"># 安装rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# 遇到Proceed with installation (default)时按enter键
+# 安装完成后，提示Rust is installed now. Great!
+# 会提示让你配置环境变量，跟着他的提示做
+# 例如：
+# To configure your current shell, run:
+# source &quot;$HOME/.cargo/env&quot;
+# 检测安装是否成功
+cargo --version
+</code></pre>
+<ul>
+<li><a href="https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md#step-0-installation">安装move cli</a></li>
+</ul>
+<pre><code class="language-shell"># 在用户目录下创建项目集目录
+mkdir -p ~/projects &amp;&amp; cd ~/projects
+# clone项目
+git clone https://github.com/move-language/move.git
+# 安装编译依赖工具
+cd move
+./scripts/dev_setup.sh -ypt
+# 安装所需依赖
+# Proceed with installing necessary dependencies? (y/N) &gt; y
+# 更新终端环境
+source ~/.profile
+# 编译并安装 move cli（需要一段时间）
+cargo install --path language/tools/move-cli
+# 检测安装是否成功
+move --version
+</code></pre>
+<ul>
+<li><a href="https://aptos.dev/cli-tools/aptos-cli-tool/install-aptos-cli">安装aptos cli</a></li>
+</ul>
+<pre><code class="language-shell"># 在用户目录下创建项目集目录
+mkdir -p ~/projects &amp;&amp; cd ~/projects
+# clone项目
+git clone https://github.com/aptos-labs/aptos-core.git
+# 安装编译依赖工具
+cd aptos-core
+./scripts/dev_setup.sh
+# 更新终端环境
+source ~/.cargo/env
+# 切换到devnet分支
+git checkout --track origin/devnet
+# 编译并安装 aptos cli（需要一段时间）
+cargo install --path crates/aptos
+# 检测安装是否成功
+aptos --version
+</code></pre>
+<ul>
+<li><a href="https://github.com/MystenLabs/sui/blob/main/doc/src/build/install.md">安装sui cli</a></li>
+</ul>
+<pre><code class="language-shell"># 在用户目录下创建项目集目录
+mkdir -p ~/projects &amp;&amp; cd ~/projects
+# clone项目
+git clone https://github.com/MystenLabs/sui.git
+# 安装编译依赖工具
+cd sui
+# 切换到devnet分支
+git checkout --track origin/devnet
+# 编译并安装 sui cli（需要一段时间）
+cargo install --path crates/sui
+# 检测安装是否成功
+sui --version
+</code></pre>
+<h2 id="hello-world-1"><a class="header" href="#hello-world-1">Hello World</a></h2>
+<h3 id="hello-move"><a class="header" href="#hello-move">hello move</a></h3>
+<pre><code class="language-shell"># 创建项目
+mkdir -p ~/projects/move_tutorial &amp;&amp; cd ~/projects/move_tutorial
+move new hello_move
+cd hello_move
+</code></pre>
+<p>添加&amp;编辑项目文件</p>
+<p><code>Move.toml</code> 添加MoveNursery依赖</p>
+<pre><code class="language-toml">[package]
+name = &quot;hello_move&quot;
+version = &quot;0.0.0&quot;
+
+[addresses]
+std =  &quot;0x1&quot;
+
+[dependencies]
+MoveStdlib = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib&quot;, rev = &quot;main&quot; }
+MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+</code></pre>
+<p><code>sources/my_module.move</code> 在0xCAFE下创建my_module模块，包含speak方法返回字符串</p>
+<pre><code class="language-move">module 0xCAFE::my_module {
+    use std::string;
+    use std::debug;
+
+    public fun speak(): string::String {
+        string::utf8(b&quot;Hello World&quot;)
+    }
+
+    #[test]
+    public fun test_speak() {
+        let res = speak();
+
+        debug::print(&amp;res);
+
+        let except = string::utf8(b&quot;Hello World&quot;);
+        assert!(res == except, 0);
+    }
+}
+</code></pre>
+<p><code>scripts/my_script.move</code> 调用my_module::speak方法，打印字符串</p>
+<pre><code class="language-move">script {
+    use std::debug;
+    use 0xCAFE::my_module;
+
+    fun my_script() {
+        debug::print(&amp;my_module::speak());
+    }
+}
+</code></pre>
+<pre><code class="language-shell"># 在沙盒环境下发布模块
+move sandbox publish
+# 运行script
+move sandbox run scripts/my_script.move
+# 上述命令输出字符串以char code形式展现，我们利用node转换下查看内容
+node -e &quot;console.log([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100].map(code =&gt; String.fromCharCode(code)).join(''))&quot;
+</code></pre>
+<h3 id="hello-aptos"><a class="header" href="#hello-aptos">hello aptos</a></h3>
+<pre><code class="language-shell"># 创建项目
+mkdir -p ~/projects/move_tutorial &amp;&amp; cd ~/projects/move_tutorial
+aptos move init --package-dir hello_aptos --name hello_aptos
+cd hello_aptos
+</code></pre>
+<p><code>sources/my_module.move</code> 在0xCAFE下创建my_module模块，包含speak方法返回字符串</p>
+<pre><code class="language-move">module 0xCAFE::my_module {
+    use std::string;
+    use std::debug;
+
+    public fun speak(): string::String {
+        string::utf8(b&quot;Hello World&quot;)
+    }
+
+    #[test]
+    public fun test_speak() {
+        let res = speak();
+
+        debug::print(&amp;res);
+
+        let except = string::utf8(b&quot;Hello World&quot;);
+        assert!(res == except, 0);
+    }
+}
+</code></pre>
+<pre><code class="language-shell"># 运行测试
+aptos move test
+# 上述命令输出字符串以char code形式展现，我们利用node转换下查看内容
+node -e &quot;console.log([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100].map(code =&gt; String.fromCharCode(code)).join(''))&quot;
+</code></pre>
+<h3 id="hello-sui"><a class="header" href="#hello-sui">hello sui</a></h3>
+<pre><code class="language-shell"># 创建项目
+mkdir -p ~/projects/move_tutorial &amp;&amp; cd ~/projects/move_tutorial
+sui move new --install-dir hello_sui hello_sui
+cd hello_sui
+</code></pre>
+<p><code>sources/my_module.move</code> 在hello_sui下创建my_module模块，包含speak方法返回字符串</p>
+<pre><code class="language-move">module hello_sui::my_module {
+    use std::string;
+
+    public fun speak(): string::String {
+        string::utf8(b&quot;Hello World&quot;)
+    }
+
+    #[test]
+    public fun test_speak() {
+        assert!(*string::bytes(&amp;speak()) == b&quot;Hello World&quot;, 0);
+    }
+}
+</code></pre>
+<pre><code class="language-shell"># 修改Move.toml
+# 将rev修改为devnet
+</code></pre>
+<pre><code class="language-shell"># 运行测试
+sui move test
+</code></pre>
+<h2 id="总结"><a class="header" href="#总结">总结</a></h2>
+<p>本节我们学习了如何搭建开发环境，并在move、aptos、sui下分别写了hello world小程序。我们发现语法上几乎一致，每种环境又有特有的内容。同学们可以随意修改代码编译测试，另外可以查看<code>move</code>、<code>aptos</code>、<code>sui</code>命令行的帮助内容，看看这些命令下还有哪些好玩的东西。接下来我们要专注于Move语法本身，学习Move模块及脚本相关内容，那我们接下来见。</p>
+<h2 id="附录"><a class="header" href="#附录">附录</a></h2>
+<h3 id="windows-wsl安装ubuntu"><a class="header" href="#windows-wsl安装ubuntu"><a href="https://docs.microsoft.com/en-us/windows/wsl/install">Windows WSL安装Ubuntu</a></a></h3>
+<pre><code class="language-powershell"># 安装 Ubuntu-20.04
+wsl --install Ubuntu-20.04
+</code></pre>
+<p>如果是初次安装WSL，需要重启电脑。</p>
+<pre><code class="language-powershell"># 进入wsl环境
+wsl -d Ubuntu-20.04
+</code></pre>
+<h3 id="代理配置"><a class="header" href="#代理配置">代理配置</a></h3>
+<p>安装过程如果出现<code>timeout</code>的错误说明你的电脑无法正常下载相关资源，包括编译工具、git代码仓库等。</p>
+<p>首先我们需要检测你的代理有效</p>
+<pre><code class="language-shell"># 终端中输入此命令，网络无法连通情况下，会卡住没有消息返回，此时按ctrl+c结束执行
+curl google.com
+# 终端中输入此命令，将ip、port替换为你的代理信息，代理运行正常情况下会输出
+HTTP_PROXY=[ip]:[port] curl google.com
+</code></pre>
+<p>代理配置包括两部分：</p>
+<ul>
+<li>配置终端环境代理，可以解决大部分终端运行命令无法正常连接情况</li>
+</ul>
+<pre><code class="language-shell"># 终端中输入命令，将ip、port替换为你的代理信息
+export HTTP_PROXY=[ip]:[port]
+export HTTPS_PROXY=[ip]:[port]
+</code></pre>
+<ul>
+<li>配置git代理，可以解决连接github下载源码问题</li>
+</ul>
+<pre><code class="language-shell"># 终端中输入命令，将ip、port替换为你的代理信息
+git config --global http.proxy [ip]:[port]
+git config --global https.proxy [ip]:[port]
+</code></pre>
+<h3 id="github替换为国内下载源"><a class="header" href="#github替换为国内下载源">github替换为国内下载源</a></h3>
+<p>如果配置代理仍然不稳定无法成功运行，可以通过在<code>github.com</code>前添加<code>gitclone.com/</code>前缀，来使用国内下载源加速下载过程，这种办法适用于<code>git clone</code>项目源码，<code>Move.toml</code>依赖链接。例如</p>
+<p><code>https://github.com/davidiw/aptos-core.git</code></p>
+<p>添加前缀</p>
+<p><code>https://gitclone.com/github.com/davidiw/aptos-core.git</code></p>
+<h3 id="dev_setupsh-脚本"><a class="header" href="#dev_setupsh-脚本"><code>dev_setup.sh</code> 脚本</a></h3>
+<pre><code class="language-shell"># 通过 -h 参数可以查看脚本说明，可以发现 -ypt 安装了 cmake clang pkg-config libssl-dev nodejs z3 cvc5 dotnet boogie 等命令，并更新了终端配置
+./scripts/dev_setup.sh -h
+# -b batch mode, no user interactions and minimal output
+# -p update /home/user/.profile
+# -t install build tools
+# -y installs or updates Move prover tools: z3, cvc5, dotnet, boogie
+# -d installs the solidity compiler
+# -g installs Git (required by the Move CLI)
+# -v verbose mode
+# -i installs an individual tool by name
+# -n will target the /opt/ dir rather than the /home/user dir.  /opt/bin/, /opt/rustup/, and /opt/dotnet/ rather than /home/user/bin/, /home/user/.rustup/, and /home/user/.dotnet/
+</code></pre>
+<h3 id="vscode-move-插件安装"><a class="header" href="#vscode-move-插件安装">VSCode Move 插件安装</a></h3>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=move.move-analyzer">https://marketplace.visualstudio.com/items?itemName=move.move-analyzer</a></p>
+<p>搜索move-analyzer插件安装</p>
+<pre><code class="language-shell"># 进入 move 源码目录
+cd ~/projects/move
+# 编译安装 move-analyzer 命令行
+cargo install --path language/move-analyzer
+</code></pre>
+<p>注意插件和命令行并非同一个，插件会探测系统安装的命令行并利用命令行执行分析</p>
+<h3 id="jetbrains-系列-ide-插件安装"><a class="header" href="#jetbrains-系列-ide-插件安装">JetBrains 系列 IDE 插件安装</a></h3>
+<p><a href="https://plugins.jetbrains.com/plugin/14721-move-language">https://plugins.jetbrains.com/plugin/14721-move-language</a></p>
+<p>搜索Move Language插件安装，配置aptos命令行位置。由于本插件由aptos生态的Pontem开发团队开发，主要针对aptos开发，所以部分IDE build功能在其它环境下运行不正常，但不影响move文件语法高亮等基础功能，仍然可以使用。</p>
+<h2 id="参考"><a class="header" href="#参考">参考</a></h2>
+<ul>
+<li><a href="https://move-language.github.io/move/">Move官方仓库</a></li>
+<li><a href="https://github.com/move-language/move/tree/main/language/documentation/book/translations/move-book-zh">Move Book中文版</a></li>
+<li><a href="https://github.com/move-language/move/blob/main/language/documentation/tutorial/README.md">Move book 教程英文版</a></li>
+<li><a href="https://move-dao.github.io/move-book-zh/move-tutorial.html">Move book 教程中文版</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="模块及脚本"><a class="header" href="#模块及脚本">模块及脚本</a></h1>
+<h2 id="概要-1"><a class="header" href="#概要-1">概要</a></h2>
+<p>本节课我们将介绍一下Move中两个不同的程序<em><strong>Modules</strong></em>和<em><strong>Scripts</strong></em>。</p>
+<p>我们首先新建一个 Move 项目:</p>
+<pre><code class="language-shell">move new modules_and_scripts
+cd  modules_and_scripts
+</code></pre>
+<p>创建完新的项目之后，不要忘记修改<code>Move.toml</code>文件，将MoveNursery依赖加上去。</p>
+<pre><code class="language-toml">[package]
+name = &quot;modules_and_scripts&quot;
+version = &quot;0.0.0&quot;
+
+[addresses]
+std =  &quot;0x1&quot;
+
+[dependencies]
+MoveStdlib = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib&quot;, rev = &quot;main&quot; }
+#将下面MoveNursery依赖添加到Move.toml文件中。
+MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+</code></pre>
+<h3 id="模块module"><a class="header" href="#模块module">模块(Module)</a></h3>
+<p>模块是定义结构类型以及对这些类型进行操作的函数的库。结构类型定义Move的全局存储的模式，模块函数定义更新存储的规则,模块本身也存储在全局存储中。模块相当于智能合约(Smart Contract)。</p>
+<h4 id="语法syntax"><a class="header" href="#语法syntax">语法(Syntax)</a></h4>
+<p>首先,模块名称可以以字母 <code>a</code> 到 <code>z</code> 或字母 <code>A</code> 到 <code>Z</code> 开头。在第一个字符之后，模块名可以包含下划线 <code>_</code> 、字母 <code>a</code> 到 <code>z</code> 、字母 <code>A</code> 到 <code>Z</code> 或数字 <code>0</code> 到 <code>9</code>。通常，模块名称以小写字母开头。名为<code>my_module</code>的模块应该存储在名为<code>my_module.move</code>的源文件中。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module my_module {}
+module MyTestModule_1 {}
+<span class="boring">}
+</span></code></pre></pre>
+<p>模块<em><strong>Module</strong></em>的语法结构如下</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module &lt;address&gt;::&lt;identifier&gt; {
+    (&lt;use&gt; | &lt;friend&gt; | &lt;type&gt; | &lt;function&gt; | &lt;constant&gt;)*
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>其中<code>&lt;address&gt;</code>是一个有效的命名地址或字面量地址。</p>
+<details>
+<summary>字面量地址</summary>
+<br/>
+<b>字面量</b>是用于表达源码中一个固定值的表示法，整数、浮点数和字符串等等都是字符串。
+比如在Java中:<br/>
+<br/>
+<code>
+int a = 1;
+</code><br/>
+<br/>
+ <code>a</code>是声明的变量，那赋值符<code>=</code>后面的<code>1</code>就是字面量。总之，字面量就是没有用标识符封装起来的量，是“值”的原始状态。<br/>
+那么字面量地址就是一个实际的地址的值，比如<code>0xCAFE</code>、<code>0xC0FFEE</code>都是字面量地址，而命名地址在使用前，要在<code>Move.toml</code>文件中声明并分配一个字面量地址。
+</details>
+<p>从语法结构中可以看出，<code>Move</code>语言的模块包含了五种元素，分别是<code>use</code>、<code>friend</code>、<code>type</code>、<code>function</code>和<code>constant</code>。从根本上说，模块是<code>types</code>和<code>functions</code>的集合, <code>Uses</code>用来导入其它模块,或者直接导入其它模块中的结构类型和函数。<code>Friends</code>用来指定同一地址下可信的模块列表。<code>Constants</code>定义可以在模块中用使用的私有常量。这些元素的详细介绍会在后面的内容中展示。</p>
+<p>在<code>sources/</code>目录下，新建文件并命名为<code>my_module.move</code>, 然后编写如下代码：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module 0xC0FFEE::my_module{
+
+    struct Example has drop{
+        i: u64
+    }
+
+    const ENOT_POSITIVE_NUMBER: u64 = 0;
+    
+    public fun is_even(x: u64): bool {  
+        let example = Example { i: x };
+        if(example.i % 2 == 0){
+            true
+        }else{
+            false
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>module 0xC0FFEE::my_module</code>这部分指定模块<code>my_module</code>会被发布到全局存储中0xC0FFEE这个地址之下。</p>
+<p>模块也可以用命名地址来声明，在使用命名地址之前，要将该地址的命名和要分配给它的字面量地址添加到<code>Move.toml</code>文件中。</p>
+<pre><code class="language-toml">[package]
+name = &quot;modules_and_scripts&quot;
+version = &quot;0.0.0&quot;
+
+[addresses]
+std =  &quot;0x1&quot;
+#下面的命名地址添加到Move.toml文件中。
+move_dao = &quot;0xC0FFEE&quot;
+
+[dependencies]
+MoveStdlib = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib&quot;, rev = &quot;main&quot; }
+#将下面MoveNursery依赖添加到Move.toml文件中。
+MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+</code></pre>
+<p>修改完<code>Move.toml</code>文件之后，修改在<code>sources/</code>目录下的<code>my_module.move</code>文件。
+将</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module 0xC0FFEE::my_module{
+<span class="boring">}
+</span></code></pre></pre>
+<p>修改为</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module move_dao::my_module{
+<span class="boring">}
+</span></code></pre></pre>
+<p>即可。</p>
+<p>命名地址只存在于源码级别，并且在编译期间，命名地址会被转换成字节码。例如，如果我们有下面的代码:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    fun example() {
+        move_dao::my_module::is_even(7);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>我们会将<code>move_dao</code>编译为<code>0xC0FFEE</code>，将和下面的代码是等价的:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    fun example() {
+        0xC0FFEE::my_module::is_even(7);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>但是在源码级别，这两个并不等价 - 函数<code>my_module::is_even</code>必须通过<code>move_dao</code>命名地址访问，而不是通过分配给该地址的数值访问。</p>
+<h3 id="脚本script"><a class="header" href="#脚本script">脚本(Script)</a></h3>
+<p>脚本(<em><strong>Scripts</strong></em>)是可执行的入口点，类似于传统语言中的主函数<code>main</code>。脚本通常调用已发布模块的函数来更新全局存储。<em><strong>Scripts</strong></em>是暂时的代码片段，没有发布到全局存储中。</p>
+<h4 id="语法syntax-1"><a class="header" href="#语法syntax-1">语法(Syntax)</a></h4>
+<p>脚本<em><strong>script</strong></em>具有以下结构:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    &lt;use&gt;*
+    &lt;constants&gt;*
+    fun &lt;identifier&gt;&lt;[type parameters: constraint]*&gt;([identifier: type]*) &lt;function_body&gt;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>一个<em><strong>Script</strong></em>块必须在开头声明<code>use</code>，然后是<code>constants</code>的内容,最后声明主函数<code>function</code>。主函数的名称可以是任意的(也就是说，它不一定命名为 <code>main</code>)，是<em><strong>Script block</strong></em>中唯一的函数，可以有任意数量的参数，并且不能有返回值。</p>
+<p>在<code>scripts/</code>目录下，新建文件并命名为<code>my_script.move</code>, 将下面示例代码编写到文件中:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script{
+    use std::debug;
+    use std::string;
+
+    use move_dao::my_module::is_even;
+
+    fun my_script(_x: u64){
+        assert!(is_even(_x), 0);
+        debug::print(&amp;string::utf8(b&quot;Even&quot;));
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>代码完成以后，我们把模块发布出去，并执行脚本，查看结果：</p>
+<pre><code class="language-shell">move sandbox publish
+#--args 9是告诉VM给script中函数传入参数值9
+move sandbox run scripts/my_script.move --args 9
+</code></pre>
+<p>运行之后，VM提示了如下信息:</p>
+<pre><code class="language-shell">Execution aborted with code 0 in transaction script
+</code></pre>
+<p>这里因为给<em><strong>Script</strong></em>中传入的参数值<code>9</code>不是偶数，并且调用了断言<code>assert</code>，所以脚本<code>my_script.move</code>的运行被中止了， 没有继续往下执行。</p>
+<p>如果再次运行脚本<code>my_script.move</code>，并传入参数值10，应该得到的如下输出:</p>
+<pre><code class="language-shell">[debug] (&amp;) { [69, 118, 101, 110] }
+# 利用node转换下输出的char code,结果应该Even
+node -e &quot;console.log([69, 118, 101, 110] .map(code =&gt; String.fromCharCode(code)).join(''))&quot;
+</code></pre>
+<p><em><strong>脚本Script</strong></em>的功能非常有限—它们不能声明友元、结构类型或访问全局存储， 它们的主要作用主要是调用模块函数.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="move-基础类型"><a class="header" href="#move-基础类型">Move 基础类型</a></h1>
+<h2 id="概要-2"><a class="header" href="#概要-2">概要</a></h2>
+<p>本节课我们会介绍一下 Move 中的基本类型，以及演示一些如何声明和使用的代码。 Move 语言的础类型有整型（Integers）、布尔型（Bool）、地址（Address)。Move没有浮点型（Float）和内建的字符串类型（String），但在 Move 的标准库中的 <code>string</code> 模块借助 u8 的向量实现了 <strong>String</strong> 类型。
+我们这节课还会从 Address 延伸讲一下 Signer 。</p>
+<p>我们首先通过新建一个 Move 项目，以便我们边讲边写:</p>
+<pre><code class="language-shell">move new primitive_types
+cd primitive_types
+</code></pre>
+<p>在 <code>Move.toml</code> 中添加我们需要的依赖，这里主要是我们后面可能需要用到 <code>std::debug::print()</code> 来查看一些结果：</p>
+<pre><code class="language-toml">[dependencies]
+MoveStdlib = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib&quot;, rev = &quot;main&quot; }
+MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+</code></pre>
+<p>然后我们新建一个<code>scripts/</code> 目录，在这个目录下新建脚本文件 <code>my_script.move</code>，编写下面的代码，作为我们这节课程的“白板”：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    use std::debug;
+
+    fun main() {
+        // Write the code here
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>当我们想运行一下 main 函数时，可以在命令行中执行如下指令</p>
+<pre><code class="language-shell">move sandbox run scripts/my_script.move
+</code></pre>
+<h2 id="integers"><a class="header" href="#integers">Integers</a></h2>
+<h3 id="整型变量定义"><a class="header" href="#整型变量定义">整型变量定义</a></h3>
+<p>Move中的整型目前只有3种，分别是<code>u8</code>、<code>u64</code>和<code>u128</code>，都是无符号整型。Move不支持有符号整型（Signed Integers），从目前来看未来也并没有引入有符号整型的计划，但后续应该会引入其他字节长度的无符号整型。</p>
+<p>和其他语言的整型一样，占用字节长度决定了可以表示数值大小的范围：</p>
+<table><thead><tr><th align="center">类型</th><th align="center">范围</th></tr></thead><tbody>
+<tr><td align="center">u8</td><td align="center">0 ~ $2^8-1$</td></tr>
+<tr><td align="center">u64</td><td align="center">0 ~ $2^{64}-1$</td></tr>
+<tr><td align="center">u128</td><td align="center">0 ~ $2^{128}-1$</td></tr>
+</tbody></table>
+<p>我们可以有几种不同的方式来声明变量：<br />
+1）先定义一个空的变量和类型，再设定它的值</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v: u8;
+v = 10; 
+<span class="boring">}
+</span></code></pre></pre>
+<p>2）在定义变量和类型的同时设定值</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v: u8 = 10;
+<span class="boring">}
+</span></code></pre></pre>
+<p>3)我们也可以不用显式的写明变量的类型，编译器可以通过代码的上下文对变量的类型进行推断，当无法进行推断的时候，编译器默认会认为是<code>u64</code>类型</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v = 10;
+<span class="boring">}
+</span></code></pre></pre>
+<p>4）也可以将类型添加在字面值的后面</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v = 10u64;
+<span class="boring">}
+</span></code></pre></pre>
+<p>但如果字面值对于变量指定的(或编译器推断的)类型来说太大了，比如下面我们把 256 赋给一个 <code>u8</code> 类型的变量，而 <code>u8</code> 类型的范围是 0-255：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v: u8 = 256;
+<span class="boring">}
+</span></code></pre></pre>
+<p>编译器就会报错：</p>
+<pre><code class="language-shell">error[E04021]: invalid number after type inference
+  ┌─ ./sources/my_script.move:4:21
+  │
+4 │        let _v: u8 = 256;
+  │                --   ^^^
+  │                │    │
+  │                │    Invalid numerical literal
+  │                │    Annotating the literal might help inference: '256u64'
+  │                Expected a literal of type 'u8', but the value is too large.
+</code></pre>
+<h3 id="整型变量运算"><a class="header" href="#整型变量运算">整型变量运算</a></h3>
+<h4 id="数学运算"><a class="header" href="#数学运算">数学运算</a></h4>
+<p>Move 中的整型都可以执行 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>、<code>%</code> 运算，但符号两边变量的类型要求完全一致，也就是说 <code>u8</code> 只能和 <code>u8</code> 进行这些操作，<code>u8</code> 和 <code>u64</code> 就会报错，我们可以尝试一下：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: u8 = 10;
+let b: u64 = 10;
+a + b;
+<span class="boring">}
+</span></code></pre></pre>
+<p>编译器会提示两个参数不相容</p>
+<pre><code class="language-shell">error[E04007]: incompatible types
+  ┌─ ./sources/my_script.move:6:11
+  │
+4 │         let a: u8 = 10;
+  │                -- Found: 'u8'. It is not compatible with the other type.
+5 │         let b: u64 = 10;
+  │                --- Found: 'u64'. It is not compatible with the other type.
+6 │         a + b;
+  │           ^ Incompatible arguments to '+'
+</code></pre>
+<h4 id="按位运算"><a class="header" href="#按位运算">按位运算</a></h4>
+<p>整型还支持按位运算 按位与<code>&amp;</code>、按位或<code>|</code>、按位亦或<code>^</code></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a:u8 = 10;      // 1010
+let b:u8 = 9;       // 1001
+let r_and = a &amp; b;  // 1000 -&gt; 8
+let r_or = a | b;   // 1011 -&gt; 11
+let r_xor = a ^ b;  // 0011 -&gt; 3
+
+debug::print(&amp;r_and);
+debug::print(&amp;r_or);
+debug::print(&amp;r_xor);
+<span class="boring">}
+</span></code></pre></pre>
+<p>同样，按位运算符两侧变量的类型也要求一致。</p>
+<h4 id="位移运算"><a class="header" href="#位移运算">位移运算</a></h4>
+<p>位移运算有两种，左位移 <code>&lt;&lt;</code> 和右位移 <code>&gt;&gt;</code></p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: u8 = 10;     // 1010
+let b = a &lt;&lt; 1;     // 10100 -&gt; 20
+let c = a &gt;&gt; 2;     // 10 -&gt; 2
+
+debug::print(&amp;b);
+debug::print(&amp;c);
+<span class="boring">}
+</span></code></pre></pre>
+<p>这里不要求位移符号的两侧类型相等，但是右侧只能是 <code>u8</code> 类型，这也很容易理解， <code>u8</code> 最大是255，但目前 Move 最多只有 <code>u128</code>。</p>
+<p>需要注意的是位移的位数不能<strong>超过或等于</strong>类型的字节数，也就是说 <code>u8</code>、<code>u64</code>、<code>u128</code> 分别最多只能位移 7、63、127 位：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: u8 = 10;     // 1010
+let b = a &lt;&lt; 8;     // Abort!
+// Execution failed because of an arithmetic error (i.e., integer overflow/underflow, div/mod by zero, or invalid shift) in script at code offset 2
+<span class="boring">}
+</span></code></pre></pre>
+<h4 id="对比运算"><a class="header" href="#对比运算">对比运算</a></h4>
+<p>Move 中只有整型可以进行对比运算 <code>&lt;</code>、<code>&gt;</code>、<code>&gt;=</code>、<code>&lt;=</code>，同样，符号两边的变量类型要一致</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: u8 = 10;
+let b: u8 = 11;
+
+let c = a &gt; b;  // false
+debug::print(&amp;c);
+
+let c = a &lt; b;  // true
+debug::print(&amp;c);
+
+let c = a &gt;= b; // false
+debug::print(&amp;c);
+
+let c = a &lt;= b ; // true
+debug::print(&amp;c);
+<span class="boring">}
+</span></code></pre></pre>
+<h4 id="等号与不等号"><a class="header" href="#等号与不等号">等号与不等号</a></h4>
+<p>虽然 Move 中只有整型可以进行对比运算，但是 <code>==</code> 和 <code>!=</code> 并不是整型独占的。不过不论如何，符号两侧的类型还是要求一致。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: u8 = 10;
+let b: u8 = 11;
+
+let c = a == b;  // false
+debug::print(&amp;c);
+
+let c = a != b;  // true
+debug::print(&amp;c);
+<span class="boring">}
+</span></code></pre></pre>
+<p>关于相等性其他的一些知识点，会在学习 Move 语言后续的一些特性时讲到。</p>
+<h4 id="类型映射"><a class="header" href="#类型映射">类型映射</a></h4>
+<p>前面的运算基本要求符号两侧的变量类型一致，这样的限制可能会带来一些麻烦。因此 Move 提供了类型映射（casting），可以临时地转换类型，让符号两侧的变量可以执行运算。
+只需要通过 <code>(e as T)</code> 的形式就可以实现类型的映射：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a: u8 = 10;
+let b: u64 = 2;
+let c = a + (b as u8); 
+
+debug::print(&amp;c);
+<span class="boring">}
+</span></code></pre></pre>
+<p>但需要注意的是，<strong>只有整型之间</strong>可以进行类型映射，并且变量的值不能超出目标类型的范围，例如 <code>256u64</code> 就无法转换成 <code>u8</code>, 程序会报错退出。</p>
+<h2 id="bool"><a class="header" href="#bool">Bool</a></h2>
+<p>布尔型的字面值只有 <code>true</code> 和 <code>false</code>。布尔型可以执行 逻辑与<code>&amp;&amp;</code>、逻辑或<code>||</code>、逻辑非<code>!</code> 的运算。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let a = true;
+let b = true;
+let c = false;
+let r1 = a || b;        // true
+let r2 = a || b &amp;&amp; c;   // true
+let r3 = !a;            // false
+
+debug::print(&amp;r1);
+debug::print(&amp;r2);
+debug::print(&amp;r3);
+<span class="boring">}
+</span></code></pre></pre>
+<p>在一些语言中，整型在与布尔型运算时会自动进行转换，但在 Move 中是不可以的，尽管整型有类型映射，但类型映射只限制在不同字节长度的整型之间，因此 Move 的整型无法转化为布尔型。
+也因此逻辑运算也只能在布尔型之间执行。</p>
+<h2 id="address"><a class="header" href="#address">Address</a></h2>
+<p>地址是 Move 中的一种类型，用于表示全局存储中的位置(或者称为帐户)，地址是一个 128bit 数值的标识符。</p>
+<p>尽管是一个128位的整型，但 Move 并不允许通过整型来创建地址，也不允许地址进行任何的数学运算，也不允许改变地址，总的来说 Move 不允许地址发生动态的变化。</p>
+<p>你可以在运行时通过地址的值来访问对应地址上的资源（Resources，这部分后面的章节会讲到），但不能在运行时通过来访问地址上的模块。
+那么怎么来理解这句话呢，首先我们要看一下 Move 链的全局状态是怎么样的，官方提供了一张示意图：
+<img src="https://github.com/move-language/move/raw/main/language/documentation/tutorial/diagrams/move_state.png" alt="" /></p>
+<p>全局状态在 Rust 中的表示大致如下：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct GlobalStorage {
+    resources: Map&lt;address, Map&lt;ResourceType, ResourceValue&gt;&gt;
+    modules: Map&lt;address, Map&lt;ModuleName, ModuleBytecode&gt;&gt;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>也就是说全局存储了两个 Map ，一个用来存每个地址有哪些资源，一个用来存每个地址有哪些模块。通过运行时只能访问第一个 Map 中的数据，也就是存储资源的那个 Map。</p>
+<p>我们再介绍一下关于地址类型的语法，地址有两种类型：数值地址 和 命名地址。 任何有效的 u128 数值都可以用作地址的值。为了和整型区分，地址在使用的时候语法会根据上下文有所差异：</p>
+<p>1）被用作表达式时，需要在地址的字面值或者命名标志符前加上 <code>@</code> 符号，这里的表达式也包括作为函数的参数等，例如：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let addr_1 = @0xAB;
+let addr_2 = @1234;
+let addr_3 = @std; 
+<span class="boring">}
+</span></code></pre></pre>
+<p>2）除此之外可以不用 <code>@</code> ，例如：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// import module
+use 0x9::my_module;
+// call function
+std::debug::print(&amp;1);
+<span class="boring">}
+</span></code></pre></pre>
+<p>命名地址需要我们在 Move.toml 中声明：</p>
+<pre><code class="language-toml">[address]
+std = &quot;0x1&quot;
+addr = &quot;0xC0FFEECAFE&quot;
+</code></pre>
+<p>当编译的时候，编译器会把源码中的命名地址标识符转换成对应的字节码。
+所以在编写源码时，一定要注意不要一会儿用命名地址，一会儿用它的数值地址，这会导致代码的可读性变差，并且从源码层面来说，两者并不相同，一个是编译时的参数，一个是常量。</p>
+<h2 id="signer"><a class="header" href="#signer">Signer</a></h2>
+<p>Signer 是 Move 内建的一种类型，不可以被复制，包含了交易发送者的地址信息。它代表了发送者的权利，也就是说它可以访问发送者地址下的资源。
+可以把 Signer 看作是对地址类型的一种结构体封装：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct signer has drop { addr: address }
+<span class="boring">}
+</span></code></pre></pre>
+<p>我们无法在代码中创建 Signer 类型的变量，只能通过给 Move 虚拟机传参来创建。 <code>Signer</code> 可以通过 <code>address_of</code> 来获取它内部地址的值。
+有了 Signer 后，某些函数就可以验证交易发送者是否真的有权限来做这些事情，避免了弄虚作假。</p>
+<h2 id="address--signer-演示"><a class="header" href="#address--signer-演示">Address &amp; Signer 演示</a></h2>
+<p>然后我们简单的演示一下 <code>Address</code> 和 <code>Signer</code> 的使用，我们先在 <code>sources/</code> 下创建 <code>my_module.move</code> 文件：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module 0x42::M {
+    struct Coin has key, store{
+        value: u64
+    }
+
+    public fun give_coin(account: &amp;signer) {
+        let coin = Coin { value: 1 };   // Create a 'Coin' 
+        move_to(account, coin);     // move the coin to account's address as a resource
+    }
+
+    public fun balance_of(owner: address): u64 acquires Coin {
+        borrow_global&lt;Coin&gt;(owner).value    // query the value of the Coin at owner's address
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>这里我们简单的创建了一个 <code>Coin</code> 结构体，并提供了给某个地址一个 <code>Coin</code> 的方法 <code>give_coin</code>，以及检查某个地址上 <code>Coin</code> 的值的方法 <code>balance_of</code>。
+这里可能涉及到一些特性和知识点，可以先不管他，只要知道这两个方法是做什么的就行了，后面的课程中会讲到这些点，这里只作简单的演示。</p>
+<p>然后我们修改 <code>my_script.move</code>：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script{
+    use 0x1::debug;
+    use std::signer;
+    use 0x42::M;
+
+    fun main(account: signer) {
+
+        M::give_coin(&amp;account);
+
+        let r = M::balance_of(signer::address_of(&amp;account));
+        debug::print(&amp;r);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>脚本做的事情就是，先给 <strong>account</strong> 一个 <code>Coin</code>，然后我们再通过查看地址下 <code>Coin</code> 的 <code>value</code> 来确认是否执行成功了。</p>
+<p>代码完成以后，我们把模块发布出去，并执行脚本，查看结果：</p>
+<pre><code class="language-shell">move sandbox publish
+move sandbox run scripts/my_script.move --signers 0xCD
+</code></pre>
+<p>这里的参数 <code>--signer 0xCD</code> 就是告诉 VM 我们的发送者地址是 <code>0xCD</code>。
+我们可以看到打印的结果，输出 <code>1</code>，表明操作成功了：</p>
+<pre><code class="language-shell">[debug] 1
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="向量与字符串"><a class="header" href="#向量与字符串">向量与字符串</a></h1>
+<p>向量是 Move 唯一的基本集合类型。<code>vector&lt;T&gt;</code> 是类型为 <code>T</code> 的元素的同构集合，可以通过从<strong>末端</strong>推入/弹出值来增加和删减向量中的元素。
+其中 <code>T</code> 可以是任意的类型，例如：<code>vector&lt;u64&gt;</code>， <code>vector&lt;address&gt;</code>，<code>vector&lt;0x42::MyModule::MyResource&gt;</code>, 以及 <code>vector&lt;vector&lt;u8&gt;&gt;</code> 都是合法的。</p>
+<p>任何类型的向量都可以通过字面值创建：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v = vector[1, 2, 3];
+<span class="boring">}
+</span></code></pre></pre>
+<p>当然也可以创建一个空向量：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v = vector[];
+<span class="boring">}
+</span></code></pre></pre>
+<p>但是当我们单独执行上面这行代码时，编译器会报错：</p>
+<pre><code class="language-shell">error[E04010]: cannot infer type
+  ┌─ ./scripts/debug_script.move:8:9
+  │
+8 │         vector[];    
+  │         ^^^^^^^^ Could not infer this type. Try adding an annotation
+
+</code></pre>
+<p>编译器告诉我们，无非推断向量的类型，尝试添加标注。这是因为向量的类型是从元素的类型或从向量的使用上推断出来的。我们声明了一个空向量，也没有使用它，编译器自然无法判断它的类型。
+只要我们后续使用了这个向量，编译器就可以进行推断，例如：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v = vector[]; 
+let another_v =  vector[1, 2, 3];
+assert!(v != another_v, 0);
+<span class="boring">}
+</span></code></pre></pre>
+<p>我们知道整型的默认类型是 <code>u64</code> ，所以 <code>another_v</code> 是一个 <code>u64</code> 的向量，当 <code>v</code> 和 <code>another_v</code> 比较时，编译器就会推断出 <code>v</code> 也是一个 <code>u64</code> 的向量。</p>
+<p>或者我们可以显式的指明向量的类型：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>vector&lt;u8&gt;[];
+vector&lt;u64&gt;[];
+vector&lt;u128&gt;[];
+vector&lt;address&gt;[];
+vector&lt;bool&gt;[];
+vector&lt;M::Coin&gt;[];
+let _v: vector&lt;u8&gt; = vector[];
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="vectoru8"><a class="header" href="#vectoru8">vector&lt;u8&gt;</a></h2>
+<p>Move 中向量的一个常见用例是表示“字节数组”，用 <code>vector&lt;u8&gt;</code> 表示。这些值通常用于加密目的，例如公钥或哈希结果。
+这些值非常常见，以至于提供了特定的语法使其更具可读性，而不是必须使用 <code>vector[]</code>，其中每个单独的 <code>u8</code> 值都以数字形式指定。</p>
+<p>目前支持两种类型的 <code>vector&lt;u8&gt;</code> 字面量，<strong>字节字符串</strong>（Byte Strings）和<strong>十六进制字符串</strong>（Hex Sstrings）。</p>
+<h3 id="byte-strings"><a class="header" href="#byte-strings">Byte Strings</a></h3>
+<p>字节字符串是带引号的字符串字面值，以 <code>b</code> 为前缀，例如：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = b&quot;Hello, world!&quot;;
+debug::print(&amp;s);
+<span class="boring">}
+</span></code></pre></pre>
+<p>可以看到打印的结果是一串整型：</p>
+<pre><code class="language-shell">[debug] (&amp;) [72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]
+</code></pre>
+<p>字节字符串是允许转义序列的 ASCII 编码字符串。目前，支持的转义序列如下：
+| 转义序列 |                   描述                    |
+| :------: | :---------------------------------------: |
+|    \n    |                   换行                    |
+|    \r    |                   回车                    |
+|    \t    |                  制表符                   |
+|    \\    |                  反斜杠                   |
+|    \0    |                   Null                    |
+|    \&quot;    |                   引号                    |
+|   \xHH   | 十六进制进制转义，插入十六进制字节序列 HH |</p>
+<h3 id="hex-sstrings"><a class="header" href="#hex-sstrings">Hex Sstrings</a></h3>
+<p>十六进制字符串是以 <code>x</code> 为前缀的带引号的字符串字面值，例如：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = x&quot;48656C6C6F210A&quot;;
+debug::print(&amp;s);
+<span class="boring">}
+</span></code></pre></pre>
+<p>可以看到打印的结果是：</p>
+<pre><code class="language-shell">[debug] (&amp;) [72, 101, 108, 108, 111, 33, 10]
+</code></pre>
+<p>每个字节对，范围从 00 到 FF 都被解析为十六进制编码的 <code>u8</code> 值。
+所以每个字节对对应于结果 <code>vector&lt;u8&gt;</code> 中的单个元素。</p>
+<p><strong>字节字符串</strong>和<strong>十六进制字符串</strong>本质上都是 <code>vector&lt;u8&gt;</code>，因此它们的类型实际上是一样的：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(b&quot;&quot; == vector&lt;u8&gt;[], 0);
+// assert!(b&quot;&quot; == vector&lt;u64&gt;[], 0);    // Error: Incompatible arguments to '=='
+assert!(b&quot;&quot; == x&quot;&quot;, 1);
+assert!(b&quot;Hello!\n&quot; == x&quot;48656C6C6F210A&quot;, 2);
+assert!(b&quot;\x48\x65\x6C\x6C\x6F\x21\x0A&quot; == x&quot;48656C6C6F210A&quot;, 3);
+assert!(
+    b&quot;\&quot;Hello\tworld!\&quot;\n \r \\Null=\0&quot; ==
+        x&quot;2248656C6C6F09776F726C6421220A200D205C4E756C6C3D00&quot;,
+    4
+);
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="标准库-stdvector"><a class="header" href="#标准库-stdvector">标准库 std::vector</a></h2>
+<p>Move 标准库中的 <code>std::vector</code> 模块提供了一些用于操作 <code>vector</code> 的函数</p>
+<ul>
+<li><code>empty&lt;Element&gt;(): vector&lt;Element&gt;;</code><br />
+创建一个类型为 <code>Element</code> 的空向量</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let _empty_v = vector::empty&lt;u128&gt;();
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>singleton&lt;Element&gt;(e: Element): vector&lt;Element&gt;</code><br />
+返回一个包含元素 <code>e</code> 的长度为1的向量</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let v = vector::singleton&lt;u64&gt;(123u64);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>length&lt;Element&gt;(v: &amp;vector&lt;Element&gt;): u64</code><br />
+返回向量的长度</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(vector::length(&amp;v) == 1, 0);
+<span class="boring">}
+</span></code></pre></pre>
+<p>这时候向量 <code>v</code> 中只有一个元素 <code>123u64</code>，所以长度是 <code>1</code>。</p>
+<ul>
+<li><code>push_back&lt;Element&gt;(v: &amp;mut vector&lt;Element&gt;, e: Element)</code><br />
+将元素 <code>e</code> 添加到向量 <code>v</code> 的末尾</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>vector::push_back(&amp;mut v, 456u64);
+vector::push_back(&amp;mut v, 789u64);
+assert!(vector::length(&amp;v) == 3, 0);
+<span class="boring">}
+</span></code></pre></pre>
+<p>这里需要注意，因为需要对向量 <code>v</code> 的内容进行修改，所以需要传入 <code>v</code> 的<strong>可变引用</strong>。</p>
+<ul>
+<li><code>pop_back&lt;Element&gt;(v: &amp;mut vector&lt;Element&gt;): Element</code><br />
+从向量 <code>v</code> 中移除最后一个元素，并返回</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(vector::pop_back(&amp;mut v) == 789u64, 0);
+assert!(vector::length(&amp;v) == 2, 0);
+// vector::pop_back(&amp;mut _empty_v); // Abort!
+<span class="boring">}
+</span></code></pre></pre>
+<p>当我们对一个空向量执行这个函数时，程序回异常退出。</p>
+<ul>
+<li><code>borrow&lt;Element&gt;(v: &amp;vector&lt;Element&gt;, i: u64): &amp;Element</code><br />
+获得向量在索引 <code>i</code> 处的不可变引用</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(*vector::borrow(&amp;v, 0) == 123u64, 0);
+assert!(vector::borrow(&amp;v, 1) == &amp;456u64, 0);
+// vector::borrow(&amp;v, 2); // Abort!
+<span class="boring">}
+</span></code></pre></pre>
+<p>函数返回的是 <code>&amp;Element</code>，使用的时候需要注意类型的匹配。引用一个超出索引范围的元素时，程序会异常退出。</p>
+<ul>
+<li><code>borrow_mut&lt;Element&gt;(v: &amp;mut vector&lt;Element&gt;, i: u64): &amp;mut Element</code><br />
+获得向量在索引 <code>i</code> 处的可变引用</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(v == vector[123, 456], 0);
+*vector::borrow_mut(&amp;mut v, 0) = 321u64;
+assert!(v == vector[321, 456], 0);
+<span class="boring">}
+</span></code></pre></pre>
+<p>我们可以通过这个函数来修改向量内部的元素，注意这里需要用到解引用 <code>*</code>。</p>
+<ul>
+<li><code>destroy_empty&lt;Element&gt;(v: vector&lt;Element&gt;)</code><br />
+销毁一个空的向量</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>vector::destroy_empty(_empty_v);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>swap&lt;Element&gt;(v: &amp;mut vector&lt;Element&gt;, i: u64, j: u64)</code><br />
+交换向量 <code>i</code> 和 <code>j</code> 索引处的元素</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(v == vector[321, 456], 0);
+vector::swap(&amp;mut v, 0, 1);
+assert!(v == vector[456, 321], 0);
+// vector::swap(&amp;mut v, 0, 2);  // Abort!
+<span class="boring">}
+</span></code></pre></pre>
+<p>当 <code>i</code> 或者 <code>j</code> 超出向量索引范围时，程序会异常退出。</p>
+<ul>
+<li><code>reverse&lt;Element&gt;(v: &amp;mut vector&lt;Element&gt;)</code>
+反转向量中元素的顺序</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(v == vector[456, 321], 0);
+vector::reverse(&amp;mut v);
+assert!(v == vector[321, 456], 0);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>append&lt;Element&gt;(lhs: &amp;mut vector&lt;Element&gt;, other: vector&lt;Element&gt;)</code>
+把 <code>other</code> 向量中的元素全部添加到 <code>lhs</code> 的末尾</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(v == vector[321, 456], 0);
+vector::append(&amp;mut v, vector[1001, 1002, 1003]);
+assert!(v == vector[321, 456, 1001, 1002, 1003], 0);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>contains&lt;Element&gt;(v: &amp;vector&lt;Element&gt;, e: &amp;Element): bool</code><br />
+判断 <code>e</code> 是否在向量中，存在返回 <code>true</code> ，否则返回 <code>false</code></li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(vector::contains(&amp;v, &amp;321), 0);
+<span class="boring">}
+</span></code></pre></pre>
+<p>注意这里的 <code>e</code> 是引用类型 <code>&amp;Element</code> 。</p>
+<ul>
+<li><code>index_of&lt;Element&gt;(v: &amp;vector&lt;Element&gt;, e: &amp;Element): (bool, u64)</code><br />
+如果元素 <code>e</code> 位于向量的索引 <code>i</code> 处，返回 <code>(true, i)</code>，否则返回 <code>false, 0</code></li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let (if_exist, index) = vector::index_of(&amp;v, &amp;456);
+assert!(if_exist == true, 0);
+assert!(index == 1 , 0);
+let (if_exist, index) = vector::index_of(&amp;v, &amp;999);
+assert!(if_exist == false, 0);
+assert!(index == 0 , 0);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>remove&lt;Element&gt;(v: &amp;mut vector&lt;Element&gt;, i: u64): Element</code>.
+移除索引 <code>i</code> 处的元素，并返回该元素，后续的元素按照原来顺序往前移</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(v == vector[321, 456, 1001, 1002, 1003], 0);
+assert!(vector::remove(&amp;mut v, 2) == 1001, 0);
+assert!(v == vector[321, 456, 1002, 1003], 0);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>swap_remove&lt;Element&gt;(v: &amp;mut vector&lt;Element&gt;, i: u64): Element</code><br />
+首先将索引 <code>i</code> 处的元素与最后的元素交换，然后将最后的元素弹出。上一个函数的复杂度是 O(n)，这个函数的复杂度是 O(1)，但是不能保持原有的顺序</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(v == vector[321, 456, 1002, 1003], 0);
+assert!(vector::swap_remove(&amp;mut v, 1) == 456, 0);
+assert!(v == vector[321, 1003, 1002], 0);
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="销毁和复制-vector"><a class="header" href="#销毁和复制-vector">销毁和复制 vector</a></h2>
+<p><code>vector&lt;T&gt;</code> 的某些行为取决于元素类型 <code>T</code> 的能力（ability），
+例如：如果向量中包含不具有 <code>drop</code> 能力的元素，就不能隐式的丢弃，必须用 <code>vector::destroy_empty</code> 显式销毁。
+但前面讲到 <code>vector::destroy_empty</code> 只能销毁空向量，那对于非空的向量，我们应该如何销毁呢？
+我们尝试在 module 中编写一个函数来销毁任意向量：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fun destroy_any_vector&lt;T&gt;(_vec: vector&lt;T&gt;) { }
+<span class="boring">}
+</span></code></pre></pre>
+<p>我们想把向量传入函数中，然后隐式的丢弃它，但编译器会报错：</p>
+<pre><code class="language-shell">error[E06001]: unused value without 'drop'
+   ┌─ ./sources/debug_module.move:12:47
+   │  
+12 │       fun destroy_any_vector&lt;T&gt;(vec: vector&lt;T&gt;) {
+   │                                 ---  ---------
+   │                                 │    │      │
+   │                                 │    │      The type 'vector&lt;T&gt;' can have the ability 'drop' but the type argument 'T' does not have the required ability 'drop'
+   │                                 │    The type 'vector&lt;T&gt;' does not have the ability 'drop'
+   │                                 The parameter 'vec' still contains a value. The value does not have the 'drop' ability and must be consumed before the function returns
+   │ ╭───────────────────────────────────────────────^
+13 │ │             // vector::destroy_empty(vec) 
+14 │ │     }
+   │ ╰─────^ Invalid return
+</code></pre>
+<p>编译器告诉我们，<code>T</code> 没有 <code>drop</code> 的能力，因此不能这样丢弃。但如果我们给 <code>T</code> 加上一个限制，要求它具备 <code>drop</code> 的能力：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fun destroy_any_vector&lt;T: drop&gt;(_vec: vector&lt;T&gt;) { }
+<span class="boring">}
+</span></code></pre></pre>
+<p>这样子我们就可以销毁具有 <code>drop</code> 能力的 <code>T</code> 组成向量了。</p>
+<p>同样，除非元素类型具有 <code>copy</code> 能力，否则无法复制向量。换句话说，当且仅当 <code>T</code> 具有 <code>copy</code> 能力时，<code>vector&lt;T&gt;</code> 才具有 <code>copy</code> 能力。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x = vector::singleton&lt;u64&gt;(10);
+let y = copy x;
+assert!(x == y, 0);
+
+// without copy ability
+// let p = vector::singleton&lt;M::Coin&gt;( M::create_coin(1) );
+// let q = copy p;
+// assert!(p == q, 0);
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>u64</code> 因为具有 <code>copy</code> 能力，因此可以复制，但我们在实现 <code>M::Coin</code> 时没有赋予它 <code>copy</code> 的能力，当我们复制时，编译器就会报错。</p>
+<p>ps：<code>let y = copy x;</code> 这行代码中，如果不加 <code>copy</code> 关键词也可以编译成功。
+这是因为在 rust 中 place expressions 在被求值时，如果该类型实现了 <code>Copy</code> trait，那么值就会被copy。
+如果该类型实现了 <code>Sized</code> trait，则会被move。<a href="https://doc.rust-lang.org/reference/expressions.html#place-expressions-and-value-expressions">【参考资料】</a></p>
+<h2 id="标准库-stdstring"><a class="header" href="#标准库-stdstring">标准库 std::string</a></h2>
+<p>前面讲到，字节字符串 和 十六进制字符串 本质上是 <code>vector&lt;u8&gt;</code> ，Move 标准库中也提供了 <code>std::string</code> 模块。并提供了 <code>String</code> 类型：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// A `String` holds a sequence of bytes which is guaranteed to be in utf8 format.
+struct String has copy, drop, store {
+    bytes: vector&lt;u8&gt;,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>String</code> 就是对 <code>vector&lt;u8&gt;</code> 的封装，模块内部也提供了一些操作函数：</p>
+<ul>
+<li><code>utf8(bytes: vector&lt;u8&gt;): String</code><br />
+从 <code>vector&lt;u8&gt;</code> 构建一个 <code>String</code> ，如果字节不能表示一个合法的utf8，则程序终止。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = string::utf8(vector[72, 101, 108, 108, 111, 33, 10]);
+debug::print(&amp;s);
+<span class="boring">}
+</span></code></pre></pre>
+<p>输出结果是：</p>
+<pre><code class="language-shell">[debug] (&amp;) { [72, 101, 108, 108, 111, 33, 10] }
+</code></pre>
+<ul>
+<li><code>try_utf8(bytes: vector&lt;u8&gt;): Option&lt;String&gt;</code><br />
+这个函数和上面类似，但输出是 <code>Option</code>，成功的话 <code>Option</code> 内部的向量会包含一个 <code>String</code>, 否则就只有一个空向量:</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let valid_s = string::try_utf8(vector[72, 101, 108, 108, 111, 33, 10]);
+let invalid_s = string::try_utf8(vector[72, 101, 108, 108, 111, 33, 255]);
+debug::print(&amp;valid_s);
+debug::print(&amp;invalid_s);
+<span class="boring">}
+</span></code></pre></pre>
+<p>输出结果为：</p>
+<pre><code class="language-shell">[debug] (&amp;) { [{ [72, 101, 108, 108, 111, 33, 10] }] }
+[debug] (&amp;) { [] }
+</code></pre>
+<ul>
+<li><code>bytes(s: &amp;String): &amp;vector&lt;u8&gt;</code><br />
+返回对基础字节向量的引用:</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(*string::bytes(&amp;s) == vector[72, 101, 108, 108, 111, 33, 10], 0);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>is_empty(s: &amp;String): bool</code><br />
+检查字符串是否为空：</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(string::is_empty(&amp;string::utf8(vector[])) == true, 0);
+assert!(string::is_empty(&amp;s) == false, 0);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>length(s: &amp;String): u64</code><br />
+返回字符串的长度：</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = string::utf8(vector[72, 101, 108, 108, 111, 33, 10]);
+assert!(string::length(&amp;s) == 7, 0);
+<span class="boring">}
+</span></code></pre></pre>
+<ul>
+<li><code>append(s: &amp;mut String, r: String)</code><br />
+在 <code>s</code> 后面追加字符串 <code>r</code> ：</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = string::utf8(vector[72, 101, 108]);
+let r = string::utf8(vector[111, 33, 10]);
+string::append(&amp;mut s, r);
+debug::print(&amp;s);
+<span class="boring">}
+</span></code></pre></pre>
+<p>可以看到输出结果是连个字符串的拼接：</p>
+<pre><code class="language-shell">[debug] (&amp;) { [72, 101, 108, 111, 33, 10] }
+</code></pre>
+<ul>
+<li><code>append_utf8(s: &amp;mut String, bytes: vector&lt;u8&gt;)</code>.<br />
+另一种方法是，直接在字符串后面追加合法的 utf8 字节向量 <code>vector&lt;u8&gt;</code>：</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = string::utf8(vector[72, 101, 108]);
+let r = vector[111, 33, 10];
+string::append_utf8(&amp;mut s, r);
+debug::print(&amp;s);
+<span class="boring">}
+</span></code></pre></pre>
+<p>输出结果和前面一致：</p>
+<pre><code class="language-shell">[debug] (&amp;) { [72, 101, 108, 111, 33, 10] }
+</code></pre>
+<ul>
+<li><code>insert(s: &amp;mut String, at: u64, o: String)</code><br />
+在 <code>s</code> 中给定的字节索引位置处插入新字符串 <code>o</code></li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = string::utf8(vector[72, 101, 108]);
+let o = string::utf8(vector[111, 33, 10]);
+string::insert(&amp;mut s, 2, o);
+debug::print(&amp;s);
+<span class="boring">}
+</span></code></pre></pre>
+<p>可以看到新的字符串从第二位开始被插入：</p>
+<pre><code class="language-shell">[debug] (&amp;) { [72, 101, 111, 33, 10, 108] }
+</code></pre>
+<ul>
+<li><code>sub_string(s: &amp;String, i: u64, j: u64): String</code><br />
+根据给定的索引 <code>i</code> 和 <code>j</code> 返回子字符串：</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = string::utf8(vector[72, 101, 108, 108, 111, 33, 10]);
+let sub_s = string::sub_string(&amp;s, 2, 5);
+debug::print(&amp;sub_s);
+<span class="boring">}
+</span></code></pre></pre>
+<p>从结果可以看到，子字符串包括开始的索引 <code>i</code> 但不包括结束的索引 <code>j</code> ：</p>
+<pre><code class="language-shell">[debug] (&amp;) { [108, 108, 111] }
+</code></pre>
+<ul>
+<li><code>index_of(s: &amp;String, r: &amp;String): u64 </code><br />
+查询 <code>r</code> 字符串在 <code>s</code> 中第一次出现的索引值，若果 <code>r</code> 不是 <code>s</code> 的子字符串，则返回 <code>s</code> 的长度：</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = string::utf8(vector[72, 101, 108, 108, 111, 33, 10]);
+let sub_s = string::utf8(vector[108, 108, 111]);
+let another_s = string::utf8(vector[108, 108, 112]);
+assert!(string::index_of(&amp;s, &amp;sub_s) == 2, 0);
+assert!(string::index_of(&amp;s, &amp;another_s) == string::length(&amp;s), 0);
+<span class="boring">}
+</span></code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="引用"><a class="header" href="#引用">引用</a></h1>
+<h2 id="概要-3"><a class="header" href="#概要-3">概要</a></h2>
+<p>本节课我们将介绍一下 Move 中引用<em><strong>References</strong></em>。
+Move 支持两种类型的引用：不可变引用<code>&amp;</code> 和可变引用<code>&amp;mut</code>。不可变引用是只读的，不能修改相关值(或其任何字段)。可变引用通过写入该引用进行修改。Move的类型系统强制执行所有权规则，以避免引用错误。</p>
+<p>我们首先新建一个 Move 项目:</p>
+<pre><code class="language-shell">move new references
+cd  references
+</code></pre>
+<p>创建完新的项目之后，不要忘记修改<code>Move.toml</code>文件，将命名地址move_dao和MoveNursery依赖加上去。</p>
+<pre><code class="language-toml">[package]
+name = &quot;references&quot;
+version = &quot;0.0.0&quot;
+
+[addresses]
+std =  &quot;0x1&quot;
+#将下列命名地址添加到Move.toml文件中
+move_dao = &quot;0xC0FFEE&quot;
+
+[dependencies]
+MoveStdlib = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib&quot;, rev = &quot;main&quot; }
+#将下面MoveNursery依赖添加到Move.toml文件中。
+MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+</code></pre>
+<p>新建一个scripts/ 目录，在这个目录下新建脚本文件 my_script.move，编写下面的代码:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    use std::debug;
+
+    fun main() {
+        // Write the code here
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="引用运算符reference-operators"><a class="header" href="#引用运算符reference-operators">引用运算符（Reference Operators）</a></h2>
+<p>Move 提供了引用运算符,可以用来创建引用、扩展引用以及把一个可变引用转换成不可变引用。下面的列表是这些运算符的语法，其中，<code>e: T</code>的表示的是“类型为<code>T</code>的表达式<code>e</code>”.</p>
+<table><thead><tr><th>语法</th><th>类型</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>&amp;e</code></td><td><code>&amp;T</code> 其中 <code>e: T</code> 和 <code>T</code> 是非引用类型</td><td>创建一个不可变的引用 <code>e</code></td></tr>
+<tr><td><code>&amp;mut e</code></td><td><code>&amp;mut T</code> 其中 <code>e: T</code> 和 <code>T</code> 是非引用类型</td><td>创建一个可变的引用 <code>e</code></td></tr>
+<tr><td><code>&amp;e.f</code></td><td><code>&amp;T</code> 其中 <code>e.f: T</code></td><td>创建结构 <code>e</code> 的字段 <code>f</code> 的不可变引用</td></tr>
+<tr><td><code>&amp;mut e.f</code></td><td><code>&amp;mut T</code> 其中<code>e.f: T</code></td><td>创建结构 <code>e</code> 的字段 <code>f</code> 的可变引用</td></tr>
+<tr><td><code>freeze(e)</code></td><td><code>&amp;T</code> 其中<code>e: &amp;mut T</code></td><td>将可变引用 <code>e</code> 转换为不可变引用</td></tr>
+</tbody></table>
+<h3 id="不可变引用"><a class="header" href="#不可变引用">不可变引用</a></h3>
+<p>运算符<code>&amp;e</code>和<code>&amp;e.f</code>可以用来创建新的不可变引用, 但是要注意的是，多重引用在Move语言里是不允许的：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let token = Token{amount: 1};
+let x: u64 = 0;
+let y: &amp;u64 = &amp;x; //创建u64类型的不可变引用y
+let t_ref : &amp;Token = &amp;token; //创建Token类型的不可变引用t_ref
+//下面的语句是错误的，编译时会报错。
+let z: &amp;&amp;u64 = &amp;y;
+<span class="boring">}
+</span></code></pre></pre>
+<p>在结构中，运算符<code>&amp;e</code>和<code>&amp;e.f</code>也可以扩展不可变引用：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let token = Token{amount: 1};
+let t_ref : &amp;Token = &amp;token;
+let a_ref : &amp;u64 = &amp;t_ref.amount;
+<span class="boring">}
+</span></code></pre></pre>
+<p>只要两个结构都在同一个模块中，具有多个字段的引用表达式也是可以的：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Token { amount: B }
+struct Balance { token : Token }
+fun f(bal: &amp;Balance): &amp;u64 {
+  &amp;bal.token.amount
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="可变引用"><a class="header" href="#可变引用">可变引用</a></h3>
+<p>运算符<code>&amp;mut e</code>和<code>&amp;mut e.f</code>可以用来创建新的可变引用, 同样也不能多重引用：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let token = Token{amount: 1};
+let x: u64 = 0;
+let y: &amp;mut u64 = &amp;mut x; //创建u64类型的可变引用y
+let t_ref : &amp;mut Token = &amp;mut token; //创建Token类型的可变引用t_ref
+<span class="boring">}
+</span></code></pre></pre>
+<p>在结构中，运算符<code>&amp;mut e</code>和<code>&amp;mut e.f</code>也可以扩展不可变引用, 但是在扩展的时候需要注意的是被扩展的引用必须是可变的，除非扩展的是一个不可变引用：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let token = Token{amount: 1};
+let t_ref : &amp;mut Token = &amp;mut token;
+let a_ref : &amp;mut u64 = &amp;mut t_ref.amount;
+
+//下列代码是有效的, 但引用a不能更新原token的值, 而引用t可以
+let t: &amp;mut Token = &amp;mut token;
+let a :&amp;u64 = &amp;t.amount;
+
+//下列代码无效，编译器会报错
+let t: &amp;Token = &amp;token;
+let a :&amp;mut u64 = &amp;mut t.amount;
+<span class="boring">}
+</span></code></pre></pre>
+<p>可以调用freeze将一个不可变引用转换成不可变引用.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x: u64 = 0;
+let y: &amp;mut u64 = &amp;mut x; //创建u64类型的可变引用y
+let z = freeze(y);  //将可变引用y转换成不可变引用并赋给z
+<span class="boring">}
+</span></code></pre></pre>
+<h4 id="freeze推断freeze-inference"><a class="header" href="#freeze推断freeze-inference">freeze推断（freeze inference）</a></h4>
+<p>在Move中，可变引用可以用在期望是不可变引用的位置, 这是因为编译器会在底层需要的地方插入freeze指令。如下:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fun takes_immut_returns_immut(x: &amp;u64): &amp;u64 { x }
+
+// freeze推断，因为返回值的类型是可变引用，但是期望返回的是不可变类型
+fun takes_mut_returns_immut(x: &amp;mut u64): &amp;u64 { x }
+
+fun expression_examples() {
+    let x = 0;
+    let y = 0;
+    takes_immut_returns_immut(&amp;x); // 无freeze推断
+    takes_immut_returns_immut(&amp;mut x); // 有freeze推断，因为期望的参数是一个不可变引用
+    takes_mut_returns_immut(&amp;mut x); // 无freeze推断
+
+    assert!(&amp;x == &amp;mut y, 42); // freeze推断, 因为不等号要求左右两边类型一致
+}
+
+fun assignment_examples() {
+    let x = 0;
+    let y = 0;
+    let imm_ref: &amp;u64 = &amp;x;
+
+    imm_ref = &amp;x; // 无freeze推断
+    imm_ref = &amp;mut y; // freeze推断，因为imm_ref期望被赋值为一个不可变引用
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>通过freeze推断，Move 类型检查器可以将 <code>&amp;mut T</code> 视为 <code>&amp;T</code> 的子类型。 如上所示，这意味着对于使用 <code>&amp;T</code> 值的任何表达式，也可以使用 <code>&amp;mut T</code> 值。反之则不允许，即不可以在期望使用可变引用的地方，使用不可变引用，这样的程序会报错。</p>
+<h2 id="读写操作-reading-and-writing"><a class="header" href="#读写操作-reading-and-writing">读写操作 (Reading and Writing)</a></h2>
+<p>通过引用进行读写的操作的语法如下：</p>
+<table><thead><tr><th>语法</th><th>类型</th><th>描述</th></tr></thead><tbody>
+<tr><td><code>*e</code></td><td><code>T</code> 其中 <code>e</code> 为 <code>&amp;T</code> 或 <code>&amp;mut T</code></td><td>读取 <code>e</code> 所指向的值</td></tr>
+<tr><td><code>*e1 = e2</code></td><td>() 其中 <code>e1: &amp;mut T</code> 和 <code>e2: T</code></td><td>用 <code>e2</code> 更新 <code>e1</code> 中的值</td></tr>
+</tbody></table>
+<p>从上述列表中，可以看到读取和写入两种操作都是使用了类C语言中的<code>*</code>语法, 其中读取中的<code>*e</code>是一种表达式，但是写入中的<code>*e</code>是必须发生在行号左边的改动。</p>
+<h3 id="读取"><a class="header" href="#读取">读取</a></h3>
+<p>在 Move 中，可以读取可变引用和不可变引用来生成引用值的副本</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x: u64 = 0;
+let a: &amp;u64 = &amp;x;
+let b: &amp;mut u64 = &amp;mut x;
+
+let c = *a;
+let d = *b;
+<span class="boring">}
+</span></code></pre></pre>
+<p>读取引用会创建值的新副本，为了读取引用，相关类型必须具有<code>copy 能力</code>, 这样的限制是为了防止复制资源值:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Token has key {amount: u64}
+
+public fun ref_token(t: Token){
+    let t_ref : &amp;Token = &amp;t;
+    //下面语句会报错，因为Token没有copy能力
+    let another_token: Token = *t_ref;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="写入"><a class="header" href="#写入">写入</a></h3>
+<p>Move 中只可以写入可变引用。在执行写入表达式 <code>*x = v</code> 会丢弃 <code>x</code> 中的值，并用 <code>v</code> 更新。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let x: u64 = 0;
+let y: &amp;mut u64 = &amp;mut x;
+*y = 1;
+assert!(x == 0, 42);
+<span class="boring">}
+</span></code></pre></pre>
+<p>为了写入引用，相关类型必须具备<code>drop能力</code>，因为写入引用将丢弃(或“删除”)旧值。此规则可防止破坏资源值：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Token has key, copy {amount: u64}
+
+public fun ref_token(t: Token){
+    let t_ref : &amp;mut Token = &amp;mut t;
+    //下面语句会报错，因为Token没有drop能力
+    *t_ref = Token{amount: 100};
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="所有权ownership"><a class="header" href="#所有权ownership">所有权(Ownership)</a></h2>
+<p><em><strong>即使同一引用已经有了副本或者扩展</strong></em>, 它依然是可以被复制和扩展的:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>public fun tokenTest(token: &amp;mut Token){
+    let t_ref = token;
+    let t_ext = &amp;mut t_ref.amount;
+    let t_ref2 = token;
+
+    *t_ext = 100;  //1
+    *t_ref = Token{amount: 99};//2
+    *t_ref2 = Token{amount: 98};//3
+    }
+<span class="boring">}
+</span></code></pre></pre>
+<p>对于熟悉Rust所有权系统的程序员来说，这可能会令人惊讶，因为他们并不能接受上面的代码。Move 的类型系统在处理副本方面更加宽松，但在写入前确保可变引用的唯一所有权方面同样严格。可以尝试把上面代码中有注释的三行打乱下顺序看会是什么样的结果。</p>
+<p>由于 Move 的持久化全局存储，要求每一个 Move 值都必须是可序列化的，而引用无法被序列化, 所以引用不能存储为结构的字段值的类型，进而了不能存在于全层存储中， 这个规则同样适用于元组。当 Move 程序终止时，程序执行期间创建的所有引用都将被销毁；它们完全是短暂的。这种不变式也适用于没有<code>store能力</code>的类型的值，不同的是，引用和元组在创建结构类型的时候就不被允许。</p>
+<h2 id="示例代码"><a class="header" href="#示例代码">示例代码</a></h2>
+<h3 id="模块module-1"><a class="header" href="#模块module-1">模块Module</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module move_dao::my_module{
+
+    struct Token has copy, key, drop{
+        amount: u64
+    }
+
+    use std::debug;
+
+    const EVALUE_NOT_CHANGED :u64 = 1;
+
+    public fun publish_token(): Token{
+        Token{amount:0}
+    }
+
+    public fun manipulate_value(x: u64, y : u64){
+        let temp :u64 = x;
+        let a: &amp;mut u64 = &amp;mut x;
+        *a = y;
+        assert!(x != temp, EVALUE_NOT_CHANGED);
+        debug::print(&amp;x);
+    }
+
+    public fun manipulate_token(x: u64, y: u64){
+        let token = Token{amount: x};
+        let t: &amp;mut Token = &amp;mut token;
+        *t = Token{amount: y};
+        assert!(token.amount != x, EVALUE_NOT_CHANGED);
+        debug::print(&amp;token.amount);
+    }
+
+    public fun manipulate_token_amount(x: u64, y:u64){
+        let token = Token{amount: x};
+        let t: &amp;mut Token = &amp;mut token;
+        let t_ext :&amp;mut u64 = &amp;mut t.amount;
+        *t_ext = y;
+        assert!(token.amount != x, EVALUE_NOT_CHANGED);
+        debug::print(&amp;token.amount);
+    }
+
+    public fun tokenTest(token: &amp;mut Token){
+
+        let t_ref = token;
+        let t_ext = &amp;mut t_ref.amount;
+        let t_ref2 = token;
+
+        *t_ext = 100;
+        *t_ref = Token{amount: 99};
+        *t_ref2 = Token{amount: 98};
+        assert!(token.amount == 98, 0);
+        debug::print(token);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="脚本script-1"><a class="header" href="#脚本script-1">脚本Script</a></h3>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    use move_dao::my_module;
+
+    fun main(a: u64, b: u64) {
+        // Write the code here
+        let token = my_module::publish_token();
+        my_module::manipulate_value(a, b);
+        my_module::manipulate_token(a, b);
+        my_module::manipulate_token_amount(a, b);
+        my_module::tokenTest(&amp;mut token);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>执行脚本，查看结果：</p>
+<pre><code class="language-shell">move sandbox publish
+#--args 1 2是告诉VM给script中函数传入参数值1和2
+move sandbox run scripts/my_script.move --args 1 2
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="常量"><a class="header" href="#常量">常量</a></h1>
+<h2 id="概要-4"><a class="header" href="#概要-4">概要</a></h2>
+<p>本节课我们将学习 Move 中的常量。
+首先我们先新建一个 Move 项目，</p>
+<pre><code class="language-shell">move new constants
+cd constants
+</code></pre>
+<p>添加依赖项MoveNursery到Move.toml</p>
+<pre><code class="language-toml">[package]
+name = &quot;modules_and_scripts&quot;
+version = &quot;0.0.0&quot;
+
+[addresses]
+std =  &quot;0x1&quot;
+
+[dependencies]
+MoveStdlib = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib&quot;, rev = &quot;main&quot; }
+#将下面MoveNursery依赖添加到Move.toml文件中。
+MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+</code></pre>
+<p>新建一个scripts/ 目录，在这个目录下新建脚本文件 my_script.move，编写下面的代码:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    use std::debug;
+
+    fun main() {
+        // Write the code here
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>常量可以让我们定义一个在<code>module</code>或<code>script</code>内使用的静态值。</p>
+<p>常量声明以 const 关键字开头，后跟名称、类型和值。他们可以存在于脚本或模块中</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const &lt;name&gt;: &lt;type&gt; = &lt;expression&gt;;
+<span class="boring">}
+</span></code></pre></pre>
+<h2 id="例子"><a class="header" href="#例子">例子：</a></h2>
+<p>假如，有一家商店，一些操作我只想让我自己能够去做，例如拿出收银机里所有的钱。
+我可以把我自己的地址设为一个常量，常量的值是无法修改的。
+当我们要做操作的时候我们就先去鉴权。</p>
+<p>我们先在 sources/ 下创建 my_module.move 文件：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>address 0x42 {
+    module example {
+        use std::signer;
+        const MY_ADDRESS: address = @0x42;
+        const MY_ERROR_CODE: u64 = 1;
+
+        public fun permissioned(s: &amp;signer) {
+            assert!(signer::address_of(s) == MY_ADDRESS, MY_ERROR_CODE);
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>将MY_ADDRESS和MY_ERROR_CODE设为常量</p>
+<p>然后我们修改 script/my_script.move 文件：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script{
+    use 0x42::example;
+
+    fun main(account: signer) {
+
+        example::permissioned(&amp;account);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>代码完成以后，我们把模块发布出去，并执行脚本</p>
+<pre><code class="language-shell">move sandbox publish
+move sandbox run scripts/my_script.move --signers 0x43
+</code></pre>
+<p>这里的参数 --signer 0x43 就是告诉 VM 调用permissoned方法的地址是 0x43。 
+如果参数不为0x42，则会终止,并返回以下信息</p>
+<pre><code>Execution aborted with code 1 in module 00000000000000000000000000000042::example.
+</code></pre>
+<p>需要注意的是，常量必须以大写字母<code>A</code>到<code>Z</code>开头，后面可以用可以包含下划线 <code>_</code>、字母 <code>a</code> 到 <code>z</code>、字母 <code>A</code> 到 <code>Z</code> 或数字 <code>0</code> 到 <code>9</code>,否则将会报错
+虽然包含小写字母的写法是被允许的,但是<a href="https://move-dao.github.io/move-book-zh/coding-conventions.html">编码规范</a>中常量的定义只使用大写字母，
+每个单词之间用下划线分割。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const FLAG: bool = false;
+const MY_ERROR_CODE: u64 = 0;
+const ADDRESS_42: address = @0x42;
+<span class="boring">}
+</span></code></pre></pre>
+<p>这种以 A 到 Z 开头的命名限制是为了给未来的语言特性留出空间。此限制未来可能会保留，也可能会删除。</p>
+<h3 id="可见性-visibility"><a class="header" href="#可见性-visibility">可见性 (Visibility)</a></h3>
+<p>目前不支持 public 常量。 const 值只能在声明的模块中使用。</p>
+<h3 id="有效值"><a class="header" href="#有效值">有效值</a></h3>
+<p>目前，常量仅限于原始类型 bool、u8、u64、u128、address 和vector<u8>。其他 vector 值(除了“string”风格的字面量)将在不远的将来获得支持。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const MY_BOOL: bool = false;
+const MY_ADDRESS: address = @0x70DD;
+const BYTES: vector&lt;u8&gt; = b&quot;hello world&quot;;
+const HEX_BYTES: vector&lt;u8&gt; = x&quot;DEADBEEF&quot;;
+<span class="boring">}
+</span></code></pre></pre>
+<h3 id="表达式作为值"><a class="header" href="#表达式作为值">表达式作为值</a></h3>
+<p>除了字面量，常量也可以包含更复杂的表达式，只要编译器能够在编译时将表达式reduce为一个值。
+目前，相等运算、布尔运算、按位运算和算术运算都是可以使用。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const RULE: bool = true &amp;&amp; false;
+const CAP: u64 = 10 * 100 + 1;
+const SHIFTY: u8 = {
+  (1 &lt;&lt; 1) * (1 &lt;&lt; 2) * (1 &lt;&lt; 3) * (1 &lt;&lt; 4)
+};
+const HALF_MAX: u128 = 340282366920938463463374607431768211455 / 2;
+const EQUAL: bool = 1 == 1;
+<span class="boring">}
+</span></code></pre></pre>
+<p>如果操作会导致运行时异常，编译器会给出无法生成常量值的错误。</p>
+<p>还有一点需要补充的是，常量当前不能引用其他常量。将来会支持。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>

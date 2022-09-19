@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>模块及脚本 - Move 教程</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../0_introduction.html">简介</a></li><li class="chapter-item expanded "><a href="../1_hello_world/index.html"><strong aria-hidden="true">1.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../2_modules_and_scripts/index.html" class="active"><strong aria-hidden="true">2.</strong> 模块及脚本</a></li><li class="chapter-item expanded "><a href="../3_primitive_types/index.html"><strong aria-hidden="true">3.</strong> Move基本类型</a></li><li class="chapter-item expanded "><a href="../4_vector_and_string/index.html"><strong aria-hidden="true">4.</strong> 向量与字符串</a></li><li class="chapter-item expanded "><a href="../5_references/index.html"><strong aria-hidden="true">5.</strong> 引用</a></li><li class="chapter-item expanded "><a href="../6_constants/index.html"><strong aria-hidden="true">6.</strong> 常量</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Move 教程</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="模块及脚本"><a class="header" href="#模块及脚本">模块及脚本</a></h1>
+<h2 id="概要"><a class="header" href="#概要">概要</a></h2>
+<p>本节课我们将介绍一下Move中两个不同的程序<em><strong>Modules</strong></em>和<em><strong>Scripts</strong></em>。</p>
+<p>我们首先新建一个 Move 项目:</p>
+<pre><code class="language-shell">move new modules_and_scripts
+cd  modules_and_scripts
+</code></pre>
+<p>创建完新的项目之后，不要忘记修改<code>Move.toml</code>文件，将MoveNursery依赖加上去。</p>
+<pre><code class="language-toml">[package]
+name = &quot;modules_and_scripts&quot;
+version = &quot;0.0.0&quot;
+
+[addresses]
+std =  &quot;0x1&quot;
+
+[dependencies]
+MoveStdlib = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib&quot;, rev = &quot;main&quot; }
+#将下面MoveNursery依赖添加到Move.toml文件中。
+MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+</code></pre>
+<h3 id="模块module"><a class="header" href="#模块module">模块(Module)</a></h3>
+<p>模块是定义结构类型以及对这些类型进行操作的函数的库。结构类型定义Move的全局存储的模式，模块函数定义更新存储的规则,模块本身也存储在全局存储中。模块相当于智能合约(Smart Contract)。</p>
+<h4 id="语法syntax"><a class="header" href="#语法syntax">语法(Syntax)</a></h4>
+<p>首先,模块名称可以以字母 <code>a</code> 到 <code>z</code> 或字母 <code>A</code> 到 <code>Z</code> 开头。在第一个字符之后，模块名可以包含下划线 <code>_</code> 、字母 <code>a</code> 到 <code>z</code> 、字母 <code>A</code> 到 <code>Z</code> 或数字 <code>0</code> 到 <code>9</code>。通常，模块名称以小写字母开头。名为<code>my_module</code>的模块应该存储在名为<code>my_module.move</code>的源文件中。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module my_module {}
+module MyTestModule_1 {}
+<span class="boring">}
+</span></code></pre></pre>
+<p>模块<em><strong>Module</strong></em>的语法结构如下</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module &lt;address&gt;::&lt;identifier&gt; {
+    (&lt;use&gt; | &lt;friend&gt; | &lt;type&gt; | &lt;function&gt; | &lt;constant&gt;)*
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>其中<code>&lt;address&gt;</code>是一个有效的命名地址或字面量地址。</p>
+<details>
+<summary>字面量地址</summary>
+<br/>
+<b>字面量</b>是用于表达源码中一个固定值的表示法，整数、浮点数和字符串等等都是字符串。
+比如在Java中:<br/>
+<br/>
+<code>
+int a = 1;
+</code><br/>
+<br/>
+ <code>a</code>是声明的变量，那赋值符<code>=</code>后面的<code>1</code>就是字面量。总之，字面量就是没有用标识符封装起来的量，是“值”的原始状态。<br/>
+那么字面量地址就是一个实际的地址的值，比如<code>0xCAFE</code>、<code>0xC0FFEE</code>都是字面量地址，而命名地址在使用前，要在<code>Move.toml</code>文件中声明并分配一个字面量地址。
+</details>
+<p>从语法结构中可以看出，<code>Move</code>语言的模块包含了五种元素，分别是<code>use</code>、<code>friend</code>、<code>type</code>、<code>function</code>和<code>constant</code>。从根本上说，模块是<code>types</code>和<code>functions</code>的集合, <code>Uses</code>用来导入其它模块,或者直接导入其它模块中的结构类型和函数。<code>Friends</code>用来指定同一地址下可信的模块列表。<code>Constants</code>定义可以在模块中用使用的私有常量。这些元素的详细介绍会在后面的内容中展示。</p>
+<p>在<code>sources/</code>目录下，新建文件并命名为<code>my_module.move</code>, 然后编写如下代码：</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module 0xC0FFEE::my_module{
+
+    struct Example has drop{
+        i: u64
+    }
+
+    const ENOT_POSITIVE_NUMBER: u64 = 0;
+    
+    public fun is_even(x: u64): bool {  
+        let example = Example { i: x };
+        if(example.i % 2 == 0){
+            true
+        }else{
+            false
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>module 0xC0FFEE::my_module</code>这部分指定模块<code>my_module</code>会被发布到全局存储中0xC0FFEE这个地址之下。</p>
+<p>模块也可以用命名地址来声明，在使用命名地址之前，要将该地址的命名和要分配给它的字面量地址添加到<code>Move.toml</code>文件中。</p>
+<pre><code class="language-toml">[package]
+name = &quot;modules_and_scripts&quot;
+version = &quot;0.0.0&quot;
+
+[addresses]
+std =  &quot;0x1&quot;
+#下面的命名地址添加到Move.toml文件中。
+move_dao = &quot;0xC0FFEE&quot;
+
+[dependencies]
+MoveStdlib = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib&quot;, rev = &quot;main&quot; }
+#将下面MoveNursery依赖添加到Move.toml文件中。
+MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+</code></pre>
+<p>修改完<code>Move.toml</code>文件之后，修改在<code>sources/</code>目录下的<code>my_module.move</code>文件。
+将</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module 0xC0FFEE::my_module{
+<span class="boring">}
+</span></code></pre></pre>
+<p>修改为</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module move_dao::my_module{
+<span class="boring">}
+</span></code></pre></pre>
+<p>即可。</p>
+<p>命名地址只存在于源码级别，并且在编译期间，命名地址会被转换成字节码。例如，如果我们有下面的代码:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    fun example() {
+        move_dao::my_module::is_even(7);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>我们会将<code>move_dao</code>编译为<code>0xC0FFEE</code>，将和下面的代码是等价的:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    fun example() {
+        0xC0FFEE::my_module::is_even(7);
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>但是在源码级别，这两个并不等价 - 函数<code>my_module::is_even</code>必须通过<code>move_dao</code>命名地址访问，而不是通过分配给该地址的数值访问。</p>
+<h3 id="脚本script"><a class="header" href="#脚本script">脚本(Script)</a></h3>
+<p>脚本(<em><strong>Scripts</strong></em>)是可执行的入口点，类似于传统语言中的主函数<code>main</code>。脚本通常调用已发布模块的函数来更新全局存储。<em><strong>Scripts</strong></em>是暂时的代码片段，没有发布到全局存储中。</p>
+<h4 id="语法syntax-1"><a class="header" href="#语法syntax-1">语法(Syntax)</a></h4>
+<p>脚本<em><strong>script</strong></em>具有以下结构:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    &lt;use&gt;*
+    &lt;constants&gt;*
+    fun &lt;identifier&gt;&lt;[type parameters: constraint]*&gt;([identifier: type]*) &lt;function_body&gt;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>一个<em><strong>Script</strong></em>块必须在开头声明<code>use</code>，然后是<code>constants</code>的内容,最后声明主函数<code>function</code>。主函数的名称可以是任意的(也就是说，它不一定命名为 <code>main</code>)，是<em><strong>Script block</strong></em>中唯一的函数，可以有任意数量的参数，并且不能有返回值。</p>
+<p>在<code>scripts/</code>目录下，新建文件并命名为<code>my_script.move</code>, 将下面示例代码编写到文件中:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script{
+    use std::debug;
+    use std::string;
+
+    use move_dao::my_module::is_even;
+
+    fun my_script(_x: u64){
+        assert!(is_even(_x), 0);
+        debug::print(&amp;string::utf8(b&quot;Even&quot;));
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>代码完成以后，我们把模块发布出去，并执行脚本，查看结果：</p>
+<pre><code class="language-shell">move sandbox publish
+#--args 9是告诉VM给script中函数传入参数值9
+move sandbox run scripts/my_script.move --args 9
+</code></pre>
+<p>运行之后，VM提示了如下信息:</p>
+<pre><code class="language-shell">Execution aborted with code 0 in transaction script
+</code></pre>
+<p>这里因为给<em><strong>Script</strong></em>中传入的参数值<code>9</code>不是偶数，并且调用了断言<code>assert</code>，所以脚本<code>my_script.move</code>的运行被中止了， 没有继续往下执行。</p>
+<p>如果再次运行脚本<code>my_script.move</code>，并传入参数值10，应该得到的如下输出:</p>
+<pre><code class="language-shell">[debug] (&amp;) { [69, 118, 101, 110] }
+# 利用node转换下输出的char code,结果应该Even
+node -e &quot;console.log([69, 118, 101, 110] .map(code =&gt; String.fromCharCode(code)).join(''))&quot;
+</code></pre>
+<p><em><strong>脚本Script</strong></em>的功能非常有限—它们不能声明友元、结构类型或访问全局存储， 它们的主要作用主要是调用模块函数.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../1_hello_world/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../3_primitive_types/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../1_hello_world/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../3_primitive_types/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
