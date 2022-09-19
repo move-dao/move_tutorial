@@ -7,9 +7,10 @@ script {
     fun main() {
 
         // create an empty vector
+        let first_v = vector[1, 2, 3];
+        debug::print(&fir)
         let v = vector[]; 
-        let another_v = vector[1, 2, 3];
-        assert!(v != another_v, 0);
+        assert!(v != first_v, 0);
         vector<u8>[];
         vector<u64>[];
         vector<u128>[];
@@ -69,6 +70,7 @@ script {
         // Add element `e` to the end of the vector `v`
         vector::push_back(&mut v, 456u64);
         vector::push_back(&mut v, 789u64);
+        assert!(v == vector[123u64, 456u64, 789u64], 0);
         assert!(vector::length(&v) == 3, 0);
 
         // Pop an element from the end of vector `v`. Aborts if `v` is empty.
@@ -142,6 +144,7 @@ script {
         // without copy ability
         // let p = vector::singleton<M::Coin>( M::create_coin(1) );
         // let q = copy p;
+        // debug::print(&q);
         // assert!(p == q, 0);
 
         // [std::string functions]
